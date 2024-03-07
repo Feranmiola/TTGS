@@ -18,12 +18,14 @@ import {
 
 import { Input } from "@/components/ui/input"
 import { Loader } from "lucide-react"
+import { useToast } from "@/components/ui/use-toast"
 
 
 
 const Signinform = () => {
   
   const isLoading = false;
+  const {toast} = useToast();
 
   const form = useForm<z.infer<typeof SigninValidationSchema>>({
     resolver: zodResolver(SigninValidationSchema),
@@ -34,7 +36,11 @@ const Signinform = () => {
   })
   
   async function onSubmit(values: z.infer<typeof SigninValidationSchema>) {
-    
+    toast({
+      variant: "destructive", 
+      title: "Successfully signed in",
+      description: "Redirecting you to the dashboard",
+    })
 }
 
   return (

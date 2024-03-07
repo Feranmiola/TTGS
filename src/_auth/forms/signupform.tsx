@@ -18,12 +18,14 @@ import {
 
 import { Input } from "@/components/ui/input"
 import { Loader } from "lucide-react"
+import { useToast } from "@/components/ui/use-toast"
 
 
 
 const Signinform = () => {
   
   const isLoading = false;
+  const {toast} = useToast();
 
   const form = useForm<z.infer<typeof SignupValidationSchema>>({
     resolver: zodResolver(SignupValidationSchema),
@@ -36,14 +38,11 @@ const Signinform = () => {
   })
   
   async function onSubmit(values: z.infer<typeof SignupValidationSchema>) {
-    // const newUser = await account.create(
-    //   ID.unique(),
-    //   values.email,
-    //   values.password,
-    //   values.name
-    // );
-
-    // console.log(newUser);
+    toast({
+      variant: "destructive", 
+      title: "Successfully signed up",
+      description: "Redirecting you to the login page",
+    })
 }
 
   return (

@@ -1,6 +1,7 @@
 import { useRef } from "react";
 import "./css/form.css"
 import { Button } from "@nextui-org/react";
+import usePost from "./hooks/usePost";
 
 type FormObject = {
     [key: string]: any
@@ -19,6 +20,7 @@ export default class FormBuilder {
     }
 
     render(showForm: boolean | null): JSX.Element {
+        const {postData, loading, error} = usePost();
         const myRefs = useRef<HTMLInputElement[]>([]);
 
         const addToRefs = (element: HTMLInputElement) => {
@@ -27,14 +29,15 @@ export default class FormBuilder {
             }
         };
 
-        const submit = () => {
+        const submit = async (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+            event.preventDefault();
             const formObject: FormObject = {};
     
             this.dataNames.forEach((name, index) => {
                 formObject[name] = myRefs.current[index].value;
             })
-    
-            console.log(formObject);
+            
+            await postData(formObject, "http://localhost:3000/course");
         }
 
         return (

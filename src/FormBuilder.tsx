@@ -19,7 +19,7 @@ export default class FormBuilder {
         this.dataNames.push(...rest);
     }
 
-    render(showForm: boolean | null): JSX.Element {
+    render(showForm: boolean | null, setShowForm: React.Dispatch<React.SetStateAction<boolean | null>>): JSX.Element {
         const {postData, loading, error} = usePost();
         const myRefs = useRef<HTMLInputElement[]>([]);
 
@@ -32,12 +32,26 @@ export default class FormBuilder {
         const submit = async (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
             event.preventDefault();
             const formObject: FormObject = {};
+
+            let allFields = true;
     
             this.dataNames.forEach((name, index) => {
-                formObject[name] = myRefs.current[index].value;
+                if(myRefs.current[index].value) {
+                    formObject[name] = myRefs.current[index].value;
+                }
+                else {
+                    allFields = false;
+                }
             })
             
-            await postData(formObject, "http://localhost:3000/course");
+            if(allFields) {
+                await postData(formObject, "http://localhost:3000/course");
+                
+                setShowForm(false);
+            }
+            else {
+                alert("Please fill all fields");
+            }
         }
 
         return (

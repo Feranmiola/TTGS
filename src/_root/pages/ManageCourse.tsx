@@ -27,12 +27,12 @@ const ManageCourses = () => {
 
     return (
         <div>
-            {form.render(showForm)}
+            {form.render(showForm, setShowForm)}
             <div className='flex flex-row'>
                 <h1 className='h2-bold py-4 px-16 text-purple-700' >Manage Courses</h1>
                 <p className=''>Admin</p>
             </div>
-            <section style={{backgroundColor: 'white', paddingRight: '2rem'}}>
+            <section style={{backgroundColor: 'white', paddingRight: '2rem', display: showForm ? 'none': 'unset'}}>
                 <div className='flex justify-end'>
                     <Button type="submit" className="shad-button_primary mt-4 w-30 place-self-center" onClick={() => setShowForm(true)}>
                         <div>Add New Course</div>

@@ -9,6 +9,11 @@ form {
     padding: 1rem 0;
 }
 
+.formBuilder {
+    position: absolute;
+    top: 1rem;
+}
+
 form input {
     padding: 0 0.5rem;
     border: 1px solid grey;

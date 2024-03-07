@@ -1,0 +1,39 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+table {
+    text-align: center;
+    background-color: white;
+    padding: 2rem 0;
+    border-collapse: separate;
+    border-spacing: 0;
+    height: 550px;
+    overflow-y: scroll;
+    display: block;
+}
+
+table::-webkit-scrollbar {
+    display: none;
+}
+
+td {
+    border-top: 1px solid rgb(148, 148, 148);
+}
+
+.tableHeaderRow {
+    background-color: #F9FAFC;
+    padding: 1rem 0rem;
+    height: 2rem;
+}
+
+.headerSpan {
+    padding: 0rem 3rem;
+    border-right: 2px solid rgb(28, 28, 28);
+}
+
+.tableRow {
+    height: 3rem;
+    /* border: 1px solid black; */
+}

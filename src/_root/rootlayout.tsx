@@ -11,7 +11,7 @@ const Rootlayout = () => {
       
       <Leftbar/>
 
-      <section className='flex flex-1 h-full'>
+      <section className='flex pl-12 flex-1 h-full'>
         <Outlet/>
       </section>
 

@@ -9,6 +9,13 @@ table {
     padding: 2rem 0;
     border-collapse: separate;
     border-spacing: 0;
+    height: 550px;
+    overflow-y: scroll;
+    display: block;
+}
+
+table::-webkit-scrollbar {
+    display: none;
 }
 
 td {

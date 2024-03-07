@@ -10,11 +10,11 @@ table.addHeaders("code", "name", "department", "classType");
 
 const ManageCourses = () => {
     const response = useFetch('http://localhost:3000/courses');
+
     if(response.data) {
         response.data.forEach((data: any) => {
             table.addRow(data); 
         })
-
     }
 
     return (

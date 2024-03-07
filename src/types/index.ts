@@ -46,18 +46,3 @@ export type INavLink = {
     username: string;
     password: string;
   };
-
-  export type Course = {
-    name: String,
-    code: String,
-    classType: String,
-    instructors: Array<String>,
-    units: Number,
-    teachingHours: Number,
-    outstandingHours: Number,
-    semester: Number,
-    department: String,
-    level: Number,
-    timeSlot: Array<Number>,
-    timeSlot2: Array<Number>,
-  }

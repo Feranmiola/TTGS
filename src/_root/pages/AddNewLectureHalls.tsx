@@ -93,7 +93,7 @@ const AddNewLectureHall = () => {
                   <FormItem>
                     <FormLabel>Hall Type</FormLabel>
                     <FormControl>
-                        <Select {...field}>
+                        <Select {...field} onValueChange={field.onChange} defaultValue={field.value}>
                           <SelectTrigger className="w-full bg-white">
                             <SelectValue placeholder="Select Hall Type" />
                           </SelectTrigger>
@@ -116,7 +116,7 @@ const AddNewLectureHall = () => {
                   <FormItem>
                     <FormLabel>Dominant School</FormLabel>
                     <FormControl>
-                    <Select {...field}>
+                    <Select {...field} onValueChange={field.onChange} defaultValue={field.value}>
                           <SelectTrigger className="w-full bg-white">
                             <SelectValue placeholder="Select School" />
                           </SelectTrigger>

@@ -1,10 +1,20 @@
 import * as z  from "zod"
 
 
-export const SignupValidationSchema = z.object({
-    name: z.string().min(2, {message : "too short" }),
-    username: z.string().min(2, {message : "too short" }),
+export const StudentSignupValidationSchema = z.object({
+    firstName: z.string().min(2, {message : "too short" }),
+    lastName: z.string().min(2, {message : "too short" }),
     email: z.string().email(),
+    department: z.string(),
+    classGroup: z.string().max(1, {message: "Your Class Group is only one Alphabet"}),
+    level: z.string(),
+    password: z.string().min(8, {message : "Password must be at least 8 characters" }),
+  })
+  export const StaffSignupValidationSchema = z.object({
+    firstName: z.string().min(2, {message : "too short" }),
+    lastName: z.string().min(2, {message : "too short" }),
+    email: z.string().email(),
+    department: z.string(),
     password: z.string().min(8, {message : "Password must be at least 8 characters" }),
   })
 

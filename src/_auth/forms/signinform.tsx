@@ -1,7 +1,7 @@
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
-import { Link } from "react-router-dom"
+import { Link, Navigate } from "react-router-dom"
 
 import { Button } from '@/components/ui/button'
 import { SigninValidationSchema } from "@/lib/validation"
@@ -25,6 +25,7 @@ import { useToast } from "@/components/ui/use-toast"
 const Signinform = () => {
   
   const isLoading = false;
+  const isAuthenticated = true;
   const {toast} = useToast();
 
   const form = useForm<z.infer<typeof SigninValidationSchema>>({
@@ -36,11 +37,21 @@ const Signinform = () => {
   })
   
   async function onSubmit(values: z.infer<typeof SigninValidationSchema>) {
-    toast({
-      variant: "destructive", 
-      title: "Successfully signed in",
-      description: "Redirecting you to the dashboard",
-    })
+    if(isAuthenticated){
+      <Navigate to="/" />
+      toast({
+        variant: "destructive", 
+        title: "Successfully signed in",
+        description: "Redirecting you to the dashboard",
+      })
+    }else{
+      toast({
+        variant: "destructive", 
+        title: "Sign In Failed",
+        description: "please try again",
+      })
+    }
+    
 }
 
   return (

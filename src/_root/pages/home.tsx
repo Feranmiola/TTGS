@@ -1,6 +1,14 @@
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 
+import {
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+} from "@/components/ui/tabs"
+
+
 const Home = () => {
   return (
     <div>
@@ -16,8 +24,33 @@ const Home = () => {
             </Button>
       </div>
 
-      <div>
-        {/* gemerated table goes here */}
+      <div className="place-content-center justify-center">
+        <Tabs className="place-self-center w-[400px]">
+
+        <TabsList className="grid w-full grid-cols-2">
+          <TabsTrigger value="SoftwareEngineering">Software Engineering</TabsTrigger>
+          <TabsTrigger value="ComputerScience">Computer Science</TabsTrigger>
+        </TabsList>
+
+          <TabsContent value="SoftwareEngineering">
+          <TabsList className="grid w-full grid-cols-2">
+              <TabsTrigger value="account1">Account1</TabsTrigger>
+              <TabsTrigger value="password1">Password</TabsTrigger>
+            </TabsList>
+              <TabsContent value="account1">Make changes to your account here.</TabsContent>
+              <TabsContent value="password1">Change your password here.</TabsContent>
+          </TabsContent>
+        
+          <TabsContent value="ComputerScience">
+          <TabsList className="grid w-full grid-cols-2">
+              <TabsTrigger value="account">Account2</TabsTrigger>
+              <TabsTrigger value="password">Password</TabsTrigger>
+            </TabsList>
+              <TabsContent value="account">Make changes to your account here.</TabsContent>
+              <TabsContent value="password">Change your password here.</TabsContent>
+          </TabsContent>
+
+        </Tabs>
       </div>
       
       

@@ -24,9 +24,9 @@ export const StudentSignupValidationSchema = z.object({
   })
 
 export const AddNewClassGroupSchema = z.object({
-    class_level: z.number().min(3).max(3),
+    class_level: z.string().min(3).max(3),
     class_label: z.string().min(0).max(1),
-    class_size: z.number().min(3),
+    class_size: z.string(),
     class_department: z.string(),
   })
 
@@ -34,29 +34,32 @@ export const AddNewClassGroupSchema = z.object({
     staff_id: z.string().min(7).max(7),
     name: z.string(),
     email: z.string().email(),
-    school: z.string(),
+    
     department: z.string(),
     password: z.string(),
   })
 
   export const AddNewDepartmentSchema = z.object({
     code: z.string().min(1).max(6),
-    name: z.string(),
-    school: z.string(),
+    name: z.string(),    
   })
 
   export const AddNewLectureHallSchema = z.object({
     code: z.string().min(1),
-    capacity: z.number(),
+    capacity: z.string(),
     hall_type_lab: z.string(),
-    school: z.string(),
+    
   })
 
   export const AddNewCourseSchema = z.object({
     code: z.string().min(1),
     name: z.string(),
     department: z.string(),
-    department1: z.string(),
+    level: z.string(),
     course_type_lab: z.string(),
     lecturer: z.string(),
+    units : z.string().max(1, {message:"You cant have double digit units"}),
+    teachingHours :z.string(),
+    outstandingHours :z.string(),
+    semester:z.string()
   })

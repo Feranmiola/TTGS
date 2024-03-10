@@ -19,7 +19,7 @@ import Authlayout from './_auth/authlayout';
 import Rootlayout from './_root/rootlayout';
 import {NextUIProvider} from "@nextui-org/react";
 import ManageLecturers from './_root/pages/ManageLecturers';
-
+import { Toaster } from "@/components/ui/toaster";
 
 
 
@@ -28,7 +28,7 @@ function App() {
   return (
     
       <main className='flex h-screen'>
-
+        <Toaster/>
         <Routes>
           {/* public routes */}
           <Route element = {<Authlayout/>}>

@@ -6,6 +6,9 @@ import { Link } from "react-router-dom"
 import { Button } from '@/components/ui/button'
 import { AddNewLecturerSchema } from "@/lib/validation"
 
+import { useNavigate } from "react-router-dom"
+import { useToast } from "@/components/ui/use-toast"
+
 import {
   Form,
   FormControl,
@@ -16,6 +19,16 @@ import {
   FormMessage,
 } from "@/components/ui/form"
 
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
+
+
 import { Input } from "@/components/ui/input"
 import { Loader } from "lucide-react"
 
@@ -23,31 +36,48 @@ const AddNewLecturer = () => {
 
   const isLoading = false;
 
+  const isSaved = true;
+  const navigate = useNavigate();
+  const {toast} = useToast();
+
   const form = useForm<z.infer<typeof AddNewLecturerSchema>>({
     resolver: zodResolver(AddNewLecturerSchema),
     defaultValues: {
       staff_id: "",
       name:"",
       email:"",
-      school:"",
       department:"",
       password: ""
     },
   })
   
   async function onSubmit(values: z.infer<typeof AddNewLecturerSchema>) {
+    if(isSaved){
+      toast({
+        variant: "destructive", 
+        title: "Lecturer Saved",
+        description: "Redirecting you to the dashboard",
+      })
+      navigate('/ManageLecturers')
+    }else{
+      toast({
+        variant: "destructive", 
+        title: "Lecturer not saved",
+        description: "please try again",
+      })
+    }
   }
 
   return (
-    <section className=" flex flex-1 justify-center items-center flex-col py-10">
+    <section className=" flex flex-1 flex-center flex-col py-10">
     
         <Form  {...form}>
 
-        <div className="sm:w-420 flex-col ">
+        <div className="sm:w-420 ">
           
           <h2 className="h3-bold md:h2-bold text-purple-500">Add a new lecturer</h2>
           
-      
+          <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col w-full mt-4">
               <FormField
                 control={form.control}
                 name="staff_id"
@@ -93,20 +123,6 @@ const AddNewLecturer = () => {
                   </FormItem>
                 )}
               />
-
-              <FormField
-                control={form.control}
-                name="school"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>School</FormLabel>
-                    <FormControl>
-                      <Input type="text"  placeholder="" className="shad-input" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
             
               <FormField
                 control={form.control}
@@ -115,7 +131,17 @@ const AddNewLecturer = () => {
                   <FormItem>
                     <FormLabel>Department</FormLabel>
                     <FormControl>
-                      <Input type="text"  placeholder="" className="shad-input" {...field} />
+                    <Select {...field} onValueChange={field.onChange} defaultValue={field.value}>
+                          <SelectTrigger className="w-full bg-white">
+                            <SelectValue placeholder="Select Department" />
+                          </SelectTrigger>
+                            <SelectContent className="bg-white">
+                              <SelectItem value="softwareEngineering" className="hover:bg-gray-200">Software Engineering</SelectItem>
+                              <SelectItem value="computerScience" className="hover:bg-gray-200">Computer Science</SelectItem>
+                              <SelectItem value="cis" className="hover:bg-gray-200">CIS</SelectItem>
+                              <SelectItem value="computerTechnology" className="hover:bg-gray-200">Computer Technology</SelectItem>
+                          </SelectContent>
+                        </Select>
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -145,7 +171,7 @@ const AddNewLecturer = () => {
                   <div>Add</div>
                 )}
               </Button>
-
+            </form>
           </div>
       </Form>
   </section>

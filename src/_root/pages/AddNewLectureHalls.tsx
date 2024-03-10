@@ -1,7 +1,8 @@
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
-import { Link } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
+import { useToast } from "@/components/ui/use-toast"
 
 import { Button } from '@/components/ui/button'
 import { AddNewLectureHallSchema } from "@/lib/validation"
@@ -32,18 +33,35 @@ import { Loader } from "lucide-react"
 const AddNewLectureHall = () => {
 
   const isLoading = false;
+  const isSaved = true;
+  const navigate = useNavigate();
+  const {toast} = useToast();
 
   const form = useForm<z.infer<typeof AddNewLectureHallSchema>>({
     resolver: zodResolver(AddNewLectureHallSchema),
     defaultValues: {
       code:"",
-      capacity:0,
+      capacity:"",
       hall_type_lab: "",
-      school:"",
     },
   })
   
   async function onSubmit(values: z.infer<typeof AddNewLectureHallSchema>) {
+    
+    if(isSaved){
+      toast({
+        variant: "destructive", 
+        title: "Lecture Hall Saved",
+        description: "Redirecting you to the dashboard",
+      })
+      navigate('/ManageLectureHalls')
+    }else{
+      toast({
+        variant: "destructive", 
+        title: "Lecture Hall not saved",
+        description: "please try again",
+      })
+    }
   }
 
   return (
@@ -55,7 +73,7 @@ const AddNewLectureHall = () => {
           
           <h2 className="h3-bold md:h2-bold text-purple-500">Add a new lecture hall</h2>
           
-
+          <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col w-full mt-4">
               <FormField
                 control={form.control}
                 name="code"
@@ -70,8 +88,6 @@ const AddNewLectureHall = () => {
                 )}
               />
             
-
-            
               <FormField
                 control={form.control}
                 name="capacity"
@@ -79,7 +95,7 @@ const AddNewLectureHall = () => {
                   <FormItem>
                     <FormLabel>Hall Capacity</FormLabel>
                     <FormControl>
-                      <Input type="number"  placeholder="" className="shad-input" {...field} />
+                      <Input type="text"  placeholder="" className="shad-input" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -109,28 +125,6 @@ const AddNewLectureHall = () => {
                 )}
               />
             
-              <FormField
-                control={form.control}
-                name="school"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Dominant School</FormLabel>
-                    <FormControl>
-                    <Select {...field} onValueChange={field.onChange} defaultValue={field.value}>
-                          <SelectTrigger className="w-full bg-white">
-                            <SelectValue placeholder="Select School" />
-                          </SelectTrigger>
-                          <SelectContent className="bg-white">
-                            <SelectItem value="CES" className="hover:bg-purple-200">Computing and Engineering Sciences</SelectItem>
-                            <SelectItem value="VAAS" className="hover:bg-purple-200">Veronica Adeleke School of Social Sciences</SelectItem>
-                          </SelectContent>
-                        </Select>
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-
               <Button type="submit" className="shad-button_primary mt-4 w-40 place-self-center">
                 {isLoading? (
                   <div className="flex-center gap-2 ">
@@ -140,7 +134,8 @@ const AddNewLectureHall = () => {
                   <div>Add</div>
                 )}
               </Button>
-
+              
+              </form>
           </div>
       </Form>
   </section>

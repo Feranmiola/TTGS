@@ -2,12 +2,13 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
 import { Link} from "react-router-dom"
-import { Navigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 
 
 import { Button } from '@/components/ui/button'
 import { StudentSignupValidationSchema, StaffSignupValidationSchema } from "@/lib/validation"
 
+import { storeCredentials } from "./storeCredentials"
 import {
   Form,
   FormControl,
@@ -47,6 +48,7 @@ const Signinform = () => {
   
   const isLoading = false;
   const isAccountCreated = true;
+  const navigate = useNavigate();
   const {toast} = useToast();
 
   const form = useForm<z.infer<typeof StudentSignupValidationSchema>>({
@@ -63,13 +65,14 @@ const Signinform = () => {
   })
   
   async function onSubmit(values: z.infer<typeof StudentSignupValidationSchema>) {
+    const isAccountCreated = storeCredentials(values.email,values.password);
     if(isAccountCreated){
-      <Navigate to="/sign-in" />
       toast({
         variant: "destructive", 
         title: "Successfully signed up",
         description: "Redirecting you to the login page",
       })
+      navigate('/sign-in')
     }else{
       toast({
         variant: "destructive", 
@@ -92,13 +95,16 @@ const formB = useForm<z.infer<typeof StaffSignupValidationSchema>>({
 })
 
 async function onSubmitB(values: z.infer<typeof StaffSignupValidationSchema>) {
+  const isAccountCreated = storeCredentials(values.email,values.password);
   if(isAccountCreated){
-    <Navigate to="/" />
+    storeCredentials(values.email,values.password);
     toast({
       variant: "destructive", 
       title: "Successfully signed up",
       description: "Redirecting you to the login page",
     })
+
+    navigate('/sign-in')
   }else{
     toast({
       variant: "destructive", 
@@ -223,7 +229,19 @@ async function onSubmitB(values: z.infer<typeof StaffSignupValidationSchema>) {
                   <FormItem>
                     <FormLabel>Level</FormLabel>
                     <FormControl>
-                      <Input type="number"  placeholder="100" className="shad-input" {...field} />
+                       <Select {...field} onValueChange={field.onChange} defaultValue={field.value}>
+                          <SelectTrigger className="w-full bg-white">
+                            <SelectValue placeholder="100" />
+                          </SelectTrigger>
+                            <SelectContent className="bg-white">
+                              <SelectItem value="100" className="hover:bg-gray-200">100</SelectItem>
+                              <SelectItem value="200" className="hover:bg-gray-200">200</SelectItem>
+                              <SelectItem value="300" className="hover:bg-gray-200">300</SelectItem>
+                              <SelectItem value="400" className="hover:bg-gray-200">400</SelectItem>
+                              <SelectItem value="500" className="hover:bg-gray-200">500</SelectItem>
+                          </SelectContent>
+                        </Select>
+
                     </FormControl>
                     <FormMessage />
                   </FormItem>

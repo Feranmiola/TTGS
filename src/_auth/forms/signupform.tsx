@@ -65,7 +65,9 @@ const Signinform = () => {
   })
   
   async function onSubmit(values: z.infer<typeof StudentSignupValidationSchema>) {
-    const isAccountCreated = storeCredentials(values.email,values.password);
+    const isAccountCreated = storeCredentials({ email: values.email, 
+                                                password: values.password, 
+                                                userType: 'student' });
     if(isAccountCreated){
       toast({
         variant: "destructive", 
@@ -95,15 +97,15 @@ const formB = useForm<z.infer<typeof StaffSignupValidationSchema>>({
 })
 
 async function onSubmitB(values: z.infer<typeof StaffSignupValidationSchema>) {
-  const isAccountCreated = storeCredentials(values.email,values.password);
+  const isAccountCreated = storeCredentials({ email: values.email, 
+                                              password: values.password, 
+                                              userType: 'lecturer' });
   if(isAccountCreated){
-    storeCredentials(values.email,values.password);
     toast({
       variant: "destructive", 
       title: "Successfully signed up",
       description: "Redirecting you to the login page",
     })
-
     navigate('/sign-in')
   }else{
     toast({

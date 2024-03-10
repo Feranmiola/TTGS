@@ -1,7 +1,14 @@
-export const storeCredentials = (email: string, password: string): boolean => {
+type User = {
+  email: string;
+  password: string;
+  userType: 'admin' | 'student' | 'lecturer';
+};
+
+export const storeCredentials = (user: User): boolean => {
   try {
-    localStorage.setItem('email', email);
-    localStorage.setItem('password', password);
+    const existingUsers: User[] = JSON.parse(localStorage.getItem('users') || '[]');
+    existingUsers.push(user);
+    localStorage.setItem('users', JSON.stringify(existingUsers));
     return true;
   } catch (error) {
     console.error(error);
@@ -9,9 +16,7 @@ export const storeCredentials = (email: string, password: string): boolean => {
   }
 };
 
-export const checkCredentials = (email: string, password: string): boolean => {
-  const storedEmail = localStorage.getItem('email');
-  const storedPassword = localStorage.getItem('password');
-
-  return email === storedEmail && password === storedPassword;
+export const checkCredentials = (email: string, password: string): User | null => {
+  const users: User[] = JSON.parse(localStorage.getItem('users') || '[]');
+  return users.find(user => user.email === email && user.password === password) || null;
 };

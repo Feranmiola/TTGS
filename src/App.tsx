@@ -13,12 +13,12 @@ import {  AddNewClassGroup,
           ManageCourses, 
           ManageDepartment, 
           ManageLectureHalls, 
+          StudentHome, 
           TimeSettings } from './_root/pages';
 
 import Authlayout from './_auth/authlayout';
 import Rootlayout from './_root/rootlayout';
-import {NextUIProvider} from "@nextui-org/react";
-import ManageLecturers from './_root/pages/ManageLecturers';
+import ManageLecturers from './_root/pages/Admin Pages/ManageLecturers';
 import { Toaster } from "@/components/ui/toaster";
 
 
@@ -56,6 +56,7 @@ function App() {
             <Route path='/AddNewLectureHalls' element = { <AddNewLectureHall/> }/>
             <Route path='/AddNewClassGroups' element = { <AddNewClassGroup/> }/>
             <Route path='/TimeSettings' element = { <TimeSettings/> }/>
+            <Route path='/StudentHome' element = { <StudentHome/> }/>
 
           </Route>
 

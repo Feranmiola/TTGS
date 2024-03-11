@@ -12,7 +12,6 @@ import { useNavigate } from 'react-router-dom';
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -53,7 +52,7 @@ const Signinform = () => {
       toast({
         variant: "destructive", 
         title: "Sign In Failed",
-        description: "please try again",
+        description: "Incorrect email or password",
       })
     }
     

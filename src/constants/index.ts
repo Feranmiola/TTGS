@@ -29,12 +29,27 @@ export const sidebarLinks = [
       route: "/ManageClassGroups",
       label: "Manage Class Groups",
     },
+  ];
+
+  export const studentSidebarLinks = [
     {
       imgURL: "/assets/icons/LineInactive.svg",
-      route: "/TimeSettings",
-      label: "Time Settings",
+      route: "/StudentHome",
+      label: "View Timetable",
     },
+    
   ];
+
+  export const lecturerSidebarLinks = [
+    {
+      imgURL: "/assets/icons/LineInactive.svg",
+      route: "/StudentHome",
+      label: "View Timetable",
+    },
+    
+  ];
+
+  
   
   export const bottombarLinks = [
     {

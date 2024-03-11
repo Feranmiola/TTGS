@@ -10,11 +10,13 @@ export const StudentSignupValidationSchema = z.object({
     level: z.string(),
     password: z.string().min(8, {message : "Password must be at least 8 characters" }),
   })
+
   export const StaffSignupValidationSchema = z.object({
     firstName: z.string().min(2, {message : "too short" }),
     lastName: z.string().min(2, {message : "too short" }),
     email: z.string().email(),
     department: z.string(),
+    course: z.string(),
     password: z.string().min(8, {message : "Password must be at least 8 characters" }),
   })
 

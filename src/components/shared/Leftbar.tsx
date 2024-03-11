@@ -1,7 +1,6 @@
 import { sidebarLinks } from '@/constants'
 import { INavLink } from '@/types'
-import React from 'react'
-import { Link, NavLink, useNavigate, useLocation } from 'react-router-dom'
+import { NavLink, useLocation } from 'react-router-dom'
 import { Button } from '../ui/button'
 
 const Leftbar = () => {
@@ -16,7 +15,7 @@ const Leftbar = () => {
             <ul className='flex flex-col pt-40'>
             
             <p className='text-light-4'>Your Dashboard</p>
-
+            
                 {sidebarLinks.map((link: INavLink) => {
 
                     const isActive = pathname ===  link.route
@@ -34,6 +33,7 @@ const Leftbar = () => {
                                 className='group-hover: invert-white'/>
 
                                 {link.label}
+                                
                             </NavLink>
                         </li>
                     )

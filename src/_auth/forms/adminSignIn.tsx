@@ -1,11 +1,10 @@
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
-import { Link } from "react-router-dom"
 
 import { Button } from '@/components/ui/button'
 import { SigninValidationSchema } from "@/lib/validation"
-import { checkCredentials } from "./storeCredentials"
+import { checkAdminCredentials } from "./storeCredentials"
 
 import { useNavigate } from 'react-router-dom';
 
@@ -24,7 +23,7 @@ import { useToast } from "@/components/ui/use-toast"
 
 
 
-const Signinform = () => {
+const AdminSignIn = () => {
   
   const isLoading = false;
   const {toast} = useToast();
@@ -39,7 +38,7 @@ const Signinform = () => {
   })
   
   async function onSubmit(values: z.infer<typeof SigninValidationSchema>) {
-    const isAuthenticated = checkCredentials(values.email,values.password);
+    const isAuthenticated = checkAdminCredentials(values.email,values.password);
     
     if(isAuthenticated){
       toast({
@@ -48,23 +47,10 @@ const Signinform = () => {
         description: "Redirecting you to the dashboard",
       })
 
-      const user = checkCredentials(values.email, values.password);
-      if (user) {
-        localStorage.setItem('user', JSON.stringify(user));
-      }
+    localStorage.setItem('user', JSON.stringify(true));
 
-      const userFetch = JSON.parse(localStorage.getItem('user') || '{}');
-
-        if(userFetch.userType === 'admin'){
-          navigate('/')  
-        }else {
-          if(userFetch.userType === 'student'){
-            navigate('/StudentHome')
-          } else{
-            navigate('/LecturerHome')
-          }
-        }
-      
+      navigate('/')
+  
     }else{
       toast({
         variant: "destructive", 
@@ -81,7 +67,7 @@ const Signinform = () => {
       <div className="sm:w-420 flex-center flex-col">
         
         
-        <h2 className="h3-bold md:h2-bold">Login to your account</h2>
+        <h2 className="h3-bold md:h2-bold">Admin SIgn In</h2>
         
       
           <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col w-full mt-4">         
@@ -122,19 +108,10 @@ const Signinform = () => {
                 <div>Sign In</div>
               )}
             </Button>
-
-            <p className="text-small-regular text-dark-2 text-center mt-3">Don't have an account?
-             <Link to = "/sign-up" className="text-primary-500 text-small-semibold ml-1">Sign-up</Link>
-             </p>
-
-             <p className="text-small-regular text-dark-2 text-center mt-3">
-             <Link to = "/adminSign-in" className="text-primary-500 text-small-semibold ml-1">Admin</Link>
-             </p>
-              
           </form>
         </div>
     </Form>
     
   )
 }
-export default Signinform
+export default AdminSignIn

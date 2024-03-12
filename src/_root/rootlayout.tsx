@@ -1,24 +1,25 @@
-import Bottombar from '@/components/shared/Bottombar'
 import Leftbar from '@/components/shared/Leftbar'
-import Topbar from '@/components/shared/Topbar'
+import StudentLeftbar from '@/components/shared/StudentLeftbar';
 import { Outlet } from 'react-router-dom'
+import LecturerLeftbar from '@/components/shared/LecturerLeftbar';
 import { Toaster } from "@/components/ui/toaster";
 
 const Rootlayout = () => {
+  
+  const user = JSON.parse(localStorage.getItem('user') || '{}');
+
   return (
-    <div className='w-full md:flex'>
-      
-      <Topbar/>
-      
-      <Leftbar/>
-      <Toaster/>
-
-      <section className='flex flex-1 h-full'>
-        <Outlet/>
-      </section>
-
-      <Bottombar/>
-    </div>
+   <main className='w-full md:flex'> 
+   {user.userType === 'admin' ? (
+      <Leftbar/>      
+    ) : user.userType === 'student' ? (
+      <StudentLeftbar/>
+    ) : (
+      <LecturerLeftbar/>
+    )}
+    <Toaster/>
+    <Outlet/>
+  </main> 
   )
 }
 

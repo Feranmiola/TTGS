@@ -20,3 +20,10 @@ export const checkCredentials = (email: string, password: string): User | null =
   const users: User[] = JSON.parse(localStorage.getItem('users') || '[]');
   return users.find(user => user.email === email && user.password === password) || null;
 };
+
+const ADMIN_EMAIL = 'admin@example.com';
+const ADMIN_PASSWORD = 'password123';
+
+export const checkAdminCredentials = (email: string, password: string): boolean => {
+  return email === ADMIN_EMAIL && password === ADMIN_PASSWORD;
+};

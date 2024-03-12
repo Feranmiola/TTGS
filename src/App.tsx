@@ -2,6 +2,8 @@ import { Route, Routes } from 'react-router-dom';
 import './globals.css'
 import Signinform from './_auth/forms/signinform';
 import Signupform from './_auth/forms/signupform';
+import AdminSignIn from './_auth/forms/adminSignIn';
+
 
 import {  AddNewClassGroup, 
           AddNewCourse, 
@@ -9,12 +11,12 @@ import {  AddNewClassGroup,
           AddNewLectureHall, 
           AddNewLecturer, 
           Home, 
+          LecturerHome, 
           ManageClassGroup, 
           ManageCourses, 
           ManageDepartment, 
           ManageLectureHalls, 
-          StudentHome, 
-          TimeSettings } from './_root/pages';
+          StudentHome, } from './_root/pages';
 
 import Authlayout from './_auth/authlayout';
 import Rootlayout from './_root/rootlayout';
@@ -35,6 +37,7 @@ function App() {
           
             <Route path= "/sign-in" element = { <Signinform/> } />
             <Route path= "/sign-up" element = { <Signupform/> } />
+            <Route path= "/adminSign-in" element = { <AdminSignIn/> } />
           
           </Route>
 
@@ -55,8 +58,9 @@ function App() {
             <Route path='/AddNewDepartment' element = { <AddNewDepartment/> }/>
             <Route path='/AddNewLectureHalls' element = { <AddNewLectureHall/> }/>
             <Route path='/AddNewClassGroups' element = { <AddNewClassGroup/> }/>
-            <Route path='/TimeSettings' element = { <TimeSettings/> }/>
+            
             <Route path='/StudentHome' element = { <StudentHome/> }/>
+            <Route path='/LecturerHome' element = { <LecturerHome/> }/>
 
           </Route>
 

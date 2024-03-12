@@ -14,3 +14,4 @@ export {default as ManageClassGroup} from './Admin Pages/ManageClassGroups';
 export {default as TimeSettings} from './Admin Pages/TimeSettings';
 
 export {default as StudentHome} from './StudentPages/studentHome';
+export {default as LecturerHome} from './LecturerPages/LecturerHome';

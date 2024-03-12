@@ -16,6 +16,11 @@ const Authlayout = () => {
           <Outlet />
           <Toaster/>
         </section>
+        {/* <img
+            src="/assets/images/side-img.svg"
+            alt="logo"
+            className="hidden xl:block h-screen w-1/2 object-cover bg-no-repeat"
+          /> */}
 
       </>
     )}

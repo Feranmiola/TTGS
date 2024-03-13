@@ -10,13 +10,14 @@ const Rootlayout = () => {
 
   return (
    <main className='w-full md:flex'> 
-   {user.userType === 'admin' ? (
-      <Leftbar/>      
+   {user.userType === 'lecturer' ? (
+      <LecturerLeftbar/>
     ) : user.userType === 'student' ? (
       <StudentLeftbar/>
     ) : (
-      <LecturerLeftbar/>
+      <Leftbar/>      
     )}
+    
     <Toaster/>
     <Outlet/>
   </main> 

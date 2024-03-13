@@ -1,4 +1,8 @@
+import React, { useRef } from 'react';
+import html2pdf from 'html2pdf.js'
 import { Button } from "@/components/ui/button"
+import TimetableComponent from "@/lib/timetableJson/timetableRender"
+import timetableData from '@/lib/timetableJson/100SE.json'
 
 import {
   Tabs,
@@ -6,14 +10,31 @@ import {
   TabsList,
   TabsTrigger,
 } from "@/components/ui/tabs"
+import { ScrollArea } from '@/components/ui/scroll-area';
 
 
 const Home = () => {
+  const tableRef = useRef(null);
+
+  const exportToPDF = () => {
+    const opt = {
+      margin: 1,
+      filename: 'Timetable.pdf',
+      image: { type: 'jpeg', quality: 0.98 },
+      html2canvas: { scale: 4 },
+      jsPDF: { unit: 'in', format: 'a3', orientation: 'landscape' }
+    };
+
+    if (tableRef.current) {
+      html2pdf().from(tableRef.current).set(opt).save();
+    }
+  };
+  
   return (
-    <div>
+    <div className=''>
+      
       <div className='flex flex-row'>
-        <h1 className='h2-bold py-14 px-16 text-purple-400' >Generate Timetable</h1>
-        <p className=''>Admin</p>
+        <h1 className='h2-bold py-11 px-16 text-purple-400' >Generate Timetable</h1>
       </div>
       
       <div className=" items-center place-self-center">
@@ -32,15 +53,18 @@ const Home = () => {
         </TabsList>
 
           <TabsContent value="SoftwareEngineering">
-       
+            <Button className='shad-button_primary' onClick={exportToPDF}>Export</Button>
+            <TimetableComponent ref={tableRef} data={timetableData} />
           </TabsContent>
         
           <TabsContent value="ComputerScience">
-       
+            <Button onClick={exportToPDF}>Export</Button>
+            <TimetableComponent ref={tableRef} data={timetableData} />
           </TabsContent>
 
         </Tabs>
       </div>
+      
       
       
     </div>

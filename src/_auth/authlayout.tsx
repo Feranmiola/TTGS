@@ -1,20 +1,22 @@
 
 import { Toaster } from "@/components/ui/toaster";
-import { Outlet, Navigate } from "react-router-dom"
+import { Outlet, useNavigate } from "react-router-dom"
 
 const Authlayout = () => {
 
   const isAuthenticated = false;
 
+  const navigate = useNavigate();
+
   return (
     <>
+    <Toaster/>
     {isAuthenticated ? (
-      <Navigate to="/" />
+      navigate('/')
     ) : (
       <>
         <section className="flex flex-1 justify-center items-center flex-col py-10">
           <Outlet />
-          <Toaster/>
         </section>
         {/* <img
             src="/assets/images/side-img.svg"

@@ -11,7 +11,7 @@ import {
   TabsList,
   TabsTrigger,
 } from "@/components/ui/tabs"
-import { ScrollArea } from '@/components/ui/scroll-area';
+import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
 
 
 const Home = () => {
@@ -55,15 +55,15 @@ const Home = () => {
 
   
   return (
-    <div className=''>
+    <div className='mt-16'>
       
       <div className='flex flex-row'>
-        <h1 className='h2-bold py-11 px-16 text-blue-600' >Generate Timetable</h1>
+        <h1 className='h2-bold px-16 text-blue-600' >Generate Timetable</h1>
       </div>
       
-      <div className=" items-center place-self-center">
-          <p className="text-black text-center ">The Timetable will be generated following the set constaints and resources</p>
-          <Button type="submit" className="shad-button_primary mt-4 w-40 place-self-center">
+      <div className=" items-center justify-center ">
+          <p className="text-black text-center mt-5 ">The Timetable will be generated following the set constaints and resources</p>
+          <Button type="submit" className="shad-button_primary mt-4 w-40">
               {isGenerating? (
                 <div className="flex-center gap-2 ">
                   <Loader/>
@@ -75,7 +75,7 @@ const Home = () => {
       </div>
 
       <div className="place-content-center justify-center">
-        <Tabs className="place-self-center w-[900px]">
+        <Tabs className="place-self-center ">
 
         <TabsList className="grid grid-cols-4 px-10 w-full">
           <TabsTrigger value="SoftwareEngineering">Software Engineering</TabsTrigger>
@@ -116,8 +116,12 @@ const Home = () => {
                   
                 </div>
               ):(
+                <ScrollArea className='rounded-md border h-96 mt-10'>
                 
-                <TimetableComponent tables={timetableData} ref={tableRef} />
+                  <TimetableComponent tables={timetableData} ref={tableRef} />
+                  <ScrollBar orientation='vertical'/>
+                  
+                </ScrollArea>
               )}
 
         
@@ -134,8 +138,7 @@ const Home = () => {
 
         </Tabs>
       </div>
-      
-      
+
       
     </div>
   )

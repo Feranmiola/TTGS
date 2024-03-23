@@ -1,3 +1,4 @@
+import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import './globals.css'
 import Signinform from './_auth/forms/signinform';
@@ -21,6 +22,7 @@ import {  AddNewClassGroup,
 import Authlayout from './_auth/authlayout';
 import Rootlayout from './_root/rootlayout';
 import ManageLecturers from './_root/pages/Admin Pages/ManageLecturers';
+import SignedOut from './_auth/forms/SignedOut';
 import { Toaster } from "@/components/ui/toaster";
 
 
@@ -38,6 +40,7 @@ function App() {
             <Route path= "/sign-in" element = { <Signinform/> } />
             <Route path= "/sign-up" element = { <Signupform/> } />
             <Route path= "/adminSign-in" element = { <AdminSignIn/> } />
+            <Route path='/SignedOut' element = { <SignedOut/> }/>
           
           </Route>
 
@@ -61,6 +64,7 @@ function App() {
             
             <Route path='/StudentHome' element = { <StudentHome/> }/>
             <Route path='/LecturerHome' element = { <LecturerHome/> }/>
+
 
           </Route>
 

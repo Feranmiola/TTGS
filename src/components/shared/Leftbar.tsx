@@ -30,7 +30,8 @@ const Leftbar = () => {
                                 <img
                                 src={link.imgURL}
                                 alt={link.label}
-                                className='group-hover: invert-white'/>
+                                className='leftSidebarImage'
+                                />
 
                                 {link.label}
                                 

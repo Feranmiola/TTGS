@@ -3,15 +3,14 @@ import html2pdf from 'html2pdf.js'
 import { Button } from "@/components/ui/button"
 import {TimetableComponent} from "@/lib/timetableJson/timetableRender"
 import timetableData from '@/lib/timetableJson/100SE.json'
+import timetableData2 from '@/lib/timetableJson/200SE.json'
+import timetableData3 from '@/lib/timetableJson/400SE.json'
 import { Loader } from "lucide-react"
 
-import {
-  Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger,
-} from "@/components/ui/tabs"
-import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
+import { Tabs, TabList, TabPanels, Tab, TabPanel } from '@chakra-ui/react'
+
+import { ScrollArea } from '@/components/ui/scroll-area';
+import {ScrollShadow} from "@nextui-org/react";
 
 
 const Home = () => {
@@ -21,34 +20,25 @@ const Home = () => {
 
   const exportToPDF = () => {
     const opt = {
-        margin: [1, 0.5, 1, 0.5], // Adjust margins as needed to center the table on the page
+        margin: [1, 0.5, 1, 0.5],
         filename: 'Timetable.pdf',
         image: { type: 'jpeg', quality: 0.98 },
         html2canvas: { scale: 4 },
         jsPDF: { unit: 'in', format: 'a3', orientation: 'landscape' }
     };
-
-    // Create a new div to hold the tables
+    
     const content = document.createElement('div');
-
-    // Get all the tables within the div
     const tables = Array.from(document.querySelectorAll('table'));
 
-    // Loop over each table
     tables.forEach((table, index) => {
-        // Clone the table and append it to the content div
         const clone = table.cloneNode(true);
         content.appendChild(clone);
-
-        // If this is not the last table, add a page break
         if (index < tables.length - 1) {
             const pageBreak = document.createElement('div');
-            pageBreak.className = 'pagebreak'; // We'll use this class to add a page break in the PDF
+            pageBreak.className = 'pagebreak'; 
             content.appendChild(pageBreak);
         }
     });
-
-    // Use html2pdf to export the content div to a PDF
     html2pdf().from(content).set(opt).save();
 };
 
@@ -61,8 +51,8 @@ const Home = () => {
         <h1 className='h2-bold px-16 text-blue-600' >Generate Timetable</h1>
       </div>
       
-      <div className=" items-center justify-center ">
-          <p className="text-black text-center mt-5 ">The Timetable will be generated following the set constaints and resources</p>
+      <div className=" items-center justify-center px-16 ">
+          <p className="text-black mt-5 ">The Timetable will be generated following the set constaints and resources</p>
           <Button type="submit" className="shad-button_primary mt-4 w-40">
               {isGenerating? (
                 <div className="flex-center gap-2 ">
@@ -75,68 +65,389 @@ const Home = () => {
       </div>
 
       <div className="place-content-center justify-center">
-        <Tabs className="place-self-center ">
+        <Tabs variant='soft-rounded' colorScheme='blue' className='mt-10 bg-white'>
+          <TabList className='mx-2 py-3'>
+            <Tab>Software Engineering</Tab>
+            <Tab>Computer Science</Tab>
+            <Tab isDisabled>Computer Tech</Tab>
+            <Tab isDisabled>Computer Information Systems</Tab>
+            <Tab isDisabled>Information Technology</Tab>
+          </TabList>
+          <TabPanels>
+            <TabPanel>
+                <Tabs colorScheme='blue'>
+              <TabList>
+                <Tab>100</Tab>
+                <Tab>200</Tab>
+                <Tab>300</Tab>
+                <Tab>400</Tab>
+              </TabList>
+              <TabPanels>
+                <TabPanel className='justify-center items-center'> 
 
-        <TabsList className="grid grid-cols-4 px-10 w-full">
-          <TabsTrigger value="SoftwareEngineering">Software Engineering</TabsTrigger>
-          <TabsTrigger value="ComputerScience">Computer Science</TabsTrigger>
-          <TabsTrigger value="CIS">CIS</TabsTrigger>
-          <TabsTrigger value="CT">Computer Technology</TabsTrigger>
-        </TabsList>
+                {/* 100L Software Engineering Tab  */}
 
-          <TabsContent value="SoftwareEngineering">
-            
-            
+                <Button onClick={exportToPDF} className="shad-button_primary w-40 place-self-center">
+                          {!isGenerated? (
+                            <div className="flex-center gap-2 ">
+                              Nothing to Export
+                            </div>
+                          ):(
+                            <div>Export</div>
+                          )}
+                        </Button>
+                        
+                        {isGenerated? (
+                            <div className="flex-center gap-2 ">
+                              {isGenerating? (
+                                <div className="flex-center gap-2 ">
+                                  
+                                  <Loader/>
 
-             <Button onClick={exportToPDF} className="shad-button_primary mt-4 w-40 place-self-center">
-              {isGenerating? (
-                <div className="flex-center gap-2 ">
-                  Nothing to Export
-                </div>
-              ):(
-                <div>Export</div>
-              )}
-            </Button>
-            
-             {isGenerated? (
-                <div className="flex-center gap-2 ">
-                  {isGenerating? (
-                    <div className="flex-center gap-2 ">
-                      
-                      <Loader/>
+                                </div>
+                              ):(
+                                <div className="flex-center gap-2 ">
+                                  
+                                  Timetable not Generated
 
-                    </div>
-                  ):(
-                    <div className="flex-center gap-2 ">
-                      
-                      Timetable not Generated
-
-                    </div>
-                  )}
+                                </div>
+                              )}
+                              
+                            </div>
+                          ):(
+                              
+                                <ScrollArea className='rounded-md border h-80 mt-10'>
+                                  <ScrollShadow size={100} className='w-full'>
+                                    <TimetableComponent tables={timetableData} ref={tableRef} />
+                                  </ScrollShadow>
+                                </ScrollArea>
+                          )}
                   
-                </div>
-              ):(
-                <ScrollArea className='rounded-md border h-96 mt-10'>
-                
-                  <TimetableComponent tables={timetableData} ref={tableRef} />
-                  <ScrollBar orientation='vertical'/>
+                </TabPanel>
+                <TabPanel>
+                  {/* 200L Software Engineering Tab  */}
+
+                  <Button onClick={exportToPDF} className="shad-button_primary w-40 place-self-center">
+                          {isGenerating? (
+                            <div className="flex-center gap-2 ">
+                              Nothing to Export
+                            </div>
+                          ):(
+                            <div>Export</div>
+                          )}
+                        </Button>
+                        
+                        {isGenerated? (
+                            <div className="flex-center gap-2 ">
+                              {isGenerating? (
+                                <div className="flex-center gap-2 ">
+                                  
+                                  <Loader/>
+
+                                </div>
+                              ):(
+                                <div className="flex-center gap-2 ">
+                                  
+                                  Timetable not Generated
+
+                                </div>
+                              )}
+                              
+                            </div>
+                          ):(
+                              
+                                <ScrollArea className='rounded-md border h-80 mt-10'>
+                                  <ScrollShadow size={100} className='w-full'>
+                                    <TimetableComponent tables={timetableData2} ref={tableRef} />
+                                  </ScrollShadow>
+                                </ScrollArea>
+                          )}
+
+                </TabPanel>
+                <TabPanel>
+                  {/* 300L Software Engineering Tab  */}
+
+                  <p>Nothing generated Here</p>
+
+                </TabPanel>
+                <TabPanel>
+                  {/* 200L Software Engineering Tab  */}
+
+                  <Button onClick={exportToPDF} className="shad-button_primary w-40 place-self-center">
+                          {isGenerating? (
+                            <div className="flex-center gap-2 ">
+                              Nothing to Export
+                            </div>
+                          ):(
+                            <div>Export</div>
+                          )}
+                        </Button>
+                        
+                        {isGenerated? (
+                            <div className="flex-center gap-2 ">
+                              {isGenerating? (
+                                <div className="flex-center gap-2 ">
+                                  
+                                  <Loader/>
+
+                                </div>
+                              ):(
+                                <div className="flex-center gap-2 ">
+                                  
+                                  Timetable not Generated
+
+                                </div>
+                              )}
+                              
+                            </div>
+                          ):(
+                              
+                                <ScrollArea className='rounded-md border h-80 mt-10'>
+                                  <ScrollShadow size={100} className='w-full'>
+                                    <TimetableComponent tables={timetableData3} ref={tableRef} />
+                                  </ScrollShadow>
+                                </ScrollArea>
+                          )}
+
+                </TabPanel>
+              </TabPanels>
+            </Tabs>
+            </TabPanel>
+            <TabPanel>
+            <Tabs colorScheme='blue'>
+              <TabList>
+                <Tab>100</Tab>
+                <Tab>200</Tab>
+                <Tab>300</Tab>
+                <Tab>400</Tab>
+              </TabList>
+              <TabPanels>
+                <TabPanel className='justify-center items-center'> 
+
+                {/* 100L Computer Science Tab  */}
+
+                <Button onClick={exportToPDF} className="shad-button_primary w-40 place-self-center">
+                          {isGenerating? (
+                            <div className="flex-center gap-2 ">
+                              Nothing to Export
+                            </div>
+                          ):(
+                            <div>Export</div>
+                          )}
+                        </Button>
+                        
+                        {isGenerated? (
+                            <div className="flex-center gap-2 ">
+                              {isGenerating? (
+                                <div className="flex-center gap-2 ">
+                                  
+                                  <Loader/>
+
+                                </div>
+                              ):(
+                                <div className="flex-center gap-2 ">
+                                  
+                                  Timetable not Generated
+
+                                </div>
+                              )}
+                              
+                            </div>
+                          ):(
+                              
+                                <ScrollArea className='rounded-md border h-80 mt-10'>
+                                  <ScrollShadow size={100} className='w-full'>
+                                    <TimetableComponent tables={timetableData} ref={tableRef} />
+                                  </ScrollShadow>
+                                </ScrollArea>
+                          )}
                   
-                </ScrollArea>
-              )}
+                </TabPanel>
+                <TabPanel>
+                  {/* 200L Computer Science Tab  */}
 
-        
-          </TabsContent>
+                  <Button onClick={exportToPDF} className="shad-button_primary w-40 place-self-center">
+                          {isGenerating? (
+                            <div className="flex-center gap-2 ">
+                              Nothing to Export
+                            </div>
+                          ):(
+                            <div>Export</div>
+                          )}
+                        </Button>
+                        
+                        {isGenerated? (
+                            <div className="flex-center gap-2 ">
+                              {isGenerating? (
+                                <div className="flex-center gap-2 ">
+                                  
+                                  <Loader/>
 
-        
-          <TabsContent value="ComputerScience">
-            <Button onClick={exportToPDF}>Export</Button>
-            <div>
-              TimetableComponent(timetableData);
-            </div>
-            
-          </TabsContent>
+                                </div>
+                              ):(
+                                <div className="flex-center gap-2 ">
+                                  
+                                  Timetable not Generated
 
+                                </div>
+                              )}
+                              
+                            </div>
+                          ):(
+                              
+                                <ScrollArea className='rounded-md border h-80 mt-10'>
+                                  <ScrollShadow size={100} className='w-full'>
+                                    <TimetableComponent tables={timetableData2} ref={tableRef} />
+                                  </ScrollShadow>
+                                </ScrollArea>
+                          )}
+
+                </TabPanel>
+                <TabPanel>
+                  {/* 300L Computer Science Tab  */}
+
+                  <p>Nothing generated Here</p>
+
+                </TabPanel>
+                <TabPanel>
+                  {/* 200L Computer Science Tab  */}
+
+                  <Button onClick={exportToPDF} className="shad-button_primary w-40 place-self-center">
+                          {isGenerating? (
+                            <div className="flex-center gap-2 ">
+                              Nothing to Export
+                            </div>
+                          ):(
+                            <div>Export</div>
+                          )}
+                        </Button>
+                        
+                        {isGenerated? (
+                            <div className="flex-center gap-2 ">
+                              {isGenerating? (
+                                <div className="flex-center gap-2 ">
+                                  
+                                  <Loader/>
+
+                                </div>
+                              ):(
+                                <div className="flex-center gap-2 ">
+                                  
+                                  Timetable not Generated
+
+                                </div>
+                              )}
+                              
+                            </div>
+                          ):(
+                              
+                                <ScrollArea className='rounded-md border h-80 mt-10'>
+                                  <ScrollShadow size={100} className='w-full'>
+                                    <TimetableComponent tables={timetableData3} ref={tableRef} />
+                                  </ScrollShadow>
+                                </ScrollArea>
+                          )}
+
+                </TabPanel>
+              </TabPanels>
+            </Tabs>
+            </TabPanel>
+            <TabPanel>
+            <Tabs colorScheme='blue'>
+              <TabList>
+                <Tab>100</Tab>
+                <Tab>200</Tab>
+                <Tab>300</Tab>
+                <Tab>400</Tab>
+              </TabList>
+              <TabPanels>
+                <TabPanel className='justify-center items-center'> 
+
+                {/* 100L Computer Tech Tab  */}
+                  <p>Nothing generated Here</p>
+                </TabPanel>
+                <TabPanel>
+                  {/* 200L Computer Tech Tab  */}
+                  <p>Nothing generated Here</p>
+                </TabPanel>
+                <TabPanel>
+                  {/* 300L Computer Tech Tab  */}
+
+                  <p>Nothing generated Here</p>
+
+                </TabPanel>
+                <TabPanel>
+                  {/* 200L Computer Tech Tab  */}
+                  <p>Nothing generated Here</p>
+                </TabPanel>
+              </TabPanels>
+            </Tabs>
+            </TabPanel>
+            <TabPanel>
+            <Tabs colorScheme='blue'>
+              <TabList>
+                <Tab>100</Tab>
+                <Tab>200</Tab>
+                <Tab>300</Tab>
+                <Tab>400</Tab>
+              </TabList>
+              <TabPanels>
+                <TabPanel className='justify-center items-center'> 
+
+                {/* 100L Computer Information Systems Tab  */}
+                  <p>Nothing generated Here</p>
+                </TabPanel>
+                <TabPanel>
+                  {/* 200L Computer Information Systems Tab  */}
+                  <p>Nothing generated Here</p>
+                </TabPanel>
+                <TabPanel>
+                  {/* 300L Computer Information Systems Tab  */}
+
+                  <p>Nothing generated Here</p>
+
+                </TabPanel>
+                <TabPanel>
+                  {/* 200L Computer Information Systems Tab  */}
+                  <p>Nothing generated Here</p>
+                </TabPanel>
+              </TabPanels>
+            </Tabs>
+            </TabPanel>
+            <TabPanel>
+            <Tabs colorScheme='blue'>
+              <TabList>
+                <Tab>100</Tab>
+                <Tab>200</Tab>
+                <Tab>300</Tab>
+                <Tab>400</Tab>
+              </TabList>
+              <TabPanels>
+                <TabPanel className='justify-center items-center'> 
+
+                {/* 100L Information Technology Tab  */}
+                  <p>Nothing generated Here</p>
+                </TabPanel>
+                <TabPanel>
+                  {/* 200L Information Technology Tab  */}
+                  <p>Nothing generated Here</p>
+                </TabPanel>
+                <TabPanel>
+                  {/* 300L Information Technology Tab  */}
+
+                  <p>Nothing generated Here</p>
+
+                </TabPanel>
+                <TabPanel>
+                  {/* 200L Information Technology Tab  */}
+                  <p>Nothing generated Here</p>
+                </TabPanel>
+              </TabPanels>
+            </Tabs>
+            </TabPanel>
+          </TabPanels>
         </Tabs>
+
       </div>
 
       

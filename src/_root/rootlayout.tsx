@@ -14,7 +14,7 @@ const Rootlayout = () => {
       <div className='w-screen flex'>
         <Leftbar/>
         <Toaster/>
-          <main className=' bg-gray-100 w-full md:flex-grow px-10'> 
+          <main className=' bg-gray-100 w-full md:flex-grow px-10 h-screena'> 
             <Outlet/>
           </main> 
       </div>

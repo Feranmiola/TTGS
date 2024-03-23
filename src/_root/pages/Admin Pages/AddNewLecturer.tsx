@@ -1,14 +1,14 @@
+import React from "react"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
-import { Link } from "react-router-dom"
+
 
 import { Button } from '@/components/ui/button'
 import { AddNewLecturerSchema } from "@/lib/validation"
 
 import { useNavigate } from "react-router-dom"
 import { useToast } from "@/components/ui/use-toast"
-import { ScrollArea } from "@/components/ui/scroll-area"
 
 import {
   Form,
@@ -76,7 +76,7 @@ const AddNewLecturer = () => {
 
         <div className="sm:w-420 ">
           
-          <h2 className="h3-bold md:h2-bold text-purple-500">Add a new lecturer</h2>
+          <h2 className="h3-bold md:h2-bold text-blue-600">Add a new lecturer</h2>
           
           <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col w-full mt-4">
               <FormField

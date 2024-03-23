@@ -1,3 +1,4 @@
+import React from "react"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
@@ -71,7 +72,7 @@ const AddNewLectureHall = () => {
 
         <div className="sm:w-420 flex-col ">
           
-          <h2 className="h3-bold md:h2-bold text-purple-500">Add a new lecture hall</h2>
+        <h2 className="h3-bold md:h2-bold text-blue-600">Add a new lecture hall</h2>
           
           <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col w-full mt-4">
               <FormField
@@ -114,8 +115,8 @@ const AddNewLectureHall = () => {
                             <SelectValue placeholder="Select Hall Type" />
                           </SelectTrigger>
                           <SelectContent className="bg-white">
-                            <SelectItem value="Practical" className="hover:bg-purple-200">Practical</SelectItem>
-                            <SelectItem value="Theory" className="hover:bg-purple-200">Theory</SelectItem>
+                            <SelectItem value="Practical" className="hover:bg-gray-200">Practical</SelectItem>
+                            <SelectItem value="Theory" className="hover:bg-gray-200">Theory</SelectItem>
                           </SelectContent>
                         </Select>
                       {/* <Input type="text"  placeholder="" className="shad-input" {...field} /> */}

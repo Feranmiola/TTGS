@@ -33,11 +33,11 @@ const Leftbar = () => {
     }
 
   return (    
-    <Sidebar className='fixed h-screen'>
+    <Sidebar className='fixed h-screen bg-white'>
     <div className='mx-10'>
       <div className='mt-30 py-10'>      
          
-          <Card className='bg-gray-100 w-40px'>
+          <Card className='bg-slate-100 w-40px'>
 
             <CardHeader className='flex flex-row'>
               

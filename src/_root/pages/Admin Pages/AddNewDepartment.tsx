@@ -1,3 +1,4 @@
+import React from "react"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
@@ -61,7 +62,7 @@ const AddNewDepartment = () => {
 
         <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col w-full mt-4">
           
-          <h2 className="h3-bold md:h2-bold text-purple-500">Add a new Department</h2>
+        <h2 className="h3-bold md:h2-bold text-blue-600">Add a new Department</h2>
           
               <FormField
                 control={form.control}

@@ -1,3 +1,4 @@
+import React from "react"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
@@ -71,13 +72,12 @@ const AddNewCourse = () => {
   }
 
   return (
-    <section className=" flex flex-1 justify-center items-center flex-col py-10">
-    <ScrollArea className="rounded-md border">
+    <section className=" flex flex-1 justify-center items-center flex-col py-10 h-screen">
+    <h1 className='h2-bold text-blue-600' >Add a new course</h1>
+    <ScrollArea className="rounded-md border h-screen">
         <Form  {...form} >
 
         <div className="sm:w-420 flex-col ">
-          
-          <h2 className="h3-bold md:h2-bold text-purple-500 flex flex-col">Add a new course</h2>
           
           <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col w-full mt-4">
               <FormField

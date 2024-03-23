@@ -21,6 +21,7 @@ import {  AddNewClassGroup,
           ManageLectureHalls, 
           StudentHome, } from './_root/pages';
 
+          
 import Authlayout from './_auth/authlayout';
 import Rootlayout from './_root/rootlayout';
 import ManageLecturers from './_root/pages/Admin Pages/ManageLecturers';

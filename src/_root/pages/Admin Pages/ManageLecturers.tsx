@@ -3,16 +3,13 @@ import {
   Table,
   Thead,
   Tbody,
-  Tfoot,
   Tr,
   Th,
   Td,
-  TableCaption,
   TableContainer,
   Box,
   InputGroup,
   InputLeftAddon,
-  InputRightAddon,
   Input,
   Spacer,
   Flex,
@@ -20,12 +17,11 @@ import {
   Center,
   Link,
 } from "@chakra-ui/react";
-import Highlighter from "react-highlight-words";
-import ColumnFilter from "./ColumnFilter";
+import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import PropTypes from "prop-types";
-import { Column } from "react-table";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { Edit as EditIcon } from "@mui/icons-material";
+import { useNavigate } from "react-router-dom";
 
 const lecturersData = [
   {
@@ -137,10 +133,18 @@ const PAGE_SIZE = 7;
 const ManageLecturers = () => {
   const [searchValue, setSearchValue] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
+  const navigate = useNavigate();
+  const filteredRows = lecturersData.filter((row) =>
+    Object.values(row)
+      .join(" ")
+      .toLowerCase()
+      .includes(searchValue.toLowerCase())
+  );
 
-  const currentData = lecturersData.slice(
+
+  const currentData = filteredRows.slice(
     (currentPage - 1) * PAGE_SIZE,
-    currentPage * PAGE_SIZE
+    Math.min((currentPage - 1) * PAGE_SIZE + PAGE_SIZE + 1, filteredRows.length)
   );
 
   
@@ -157,52 +161,17 @@ const ManageLecturers = () => {
     }
   };
 
+  const handleAdd = () => {
+    navigate('/AddNewLecturer')
+  };
+
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchValue(e.currentTarget.value);
   };
 
-  interface Column {
-    Header: string;
-    accessor: string;
-    Cell?: ({ value }: { value: string }) => JSX.Element;
-  }
-
-  const columns: Column[] = [
-    {
-      Header: "Staff ID",
-      accessor: "staffId",
-    },
-    {
-      Header: "Name",
-      accessor: "name",
-      Cell: ({ value }: { value: string }) => (
-        <span>{value === searchValue ? value : ""}</span>
-      ),
-    },
-    {
-      Header: "Email",
-      accessor: "email",
-      Cell: ({ value }: { value: string }) => (
-        <span>{value === searchValue ? value : ""}</span>
-      ),
-    },
-    {
-      Header: "Department",
-      accessor: "department",
-      Cell: ({ value }: { value: string }) => (
-        <span>{value === searchValue ? value : ""}</span>
-      ),
-    },
-  ];
-
-  const filteredRows = lecturersData.filter((row) =>
-    Object.values(row)
-      .join(" ")
-      .toLowerCase()
-      .includes(searchValue.toLowerCase())
-  );
-
-  const totalPages = Math.ceil(filteredRows.length / PAGE_SIZE);
+  
+  const totalRows = Math.ceil(filteredRows.length / PAGE_SIZE);
+  const totalPages = Math.max(totalRows, 1);
 
   return (
     <div className="">
@@ -222,11 +191,12 @@ const ManageLecturers = () => {
           </InputGroup>
           <Link href="#">
             <Center>
-              <Button className="shad-button_primary mt-4 w-40">Add</Button>
+              <Button className="shad-button_primary mt-4 w-40" onClick={handleAdd}>Add</Button>
             </Center>
           </Link>
         </Flex>
-
+        <ScrollArea style={{ height: '500px', width: '100%' }} >
+          <ScrollBar orientation="vertical" className="w-2 fill-black"/>
         <TableContainer overflowY="auto">
           {searchValue ? (
             <Table variant="striped" colorScheme="gray" className="min-w-full divide-y divide-gray-300">
@@ -322,6 +292,7 @@ const ManageLecturers = () => {
             </Table>
           )}
         </TableContainer>
+      </ScrollArea>
 
         {searchValue && !filteredRows.length && (
           <div className="text-red-500 text-sm mx-auto mt-2">No Matches Found.</div>

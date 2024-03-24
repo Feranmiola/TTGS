@@ -143,6 +143,37 @@ th, td {
     page-break-before: always;
 }
 
+::-webkit-scrollbar {
+  width: 8px;
+  background-color: #f5f5f5;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 4px;
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+.shadcn-ui-scrollarea__viewport {
+  /* Set the scrollbar thumb & track colors */
+  --scrollbarBG: var(--chakra-colors-gray-200);
+  --scrollbarColor: var(--chakra-colors-brand-500);
+
+  /* Hide the default scrollbar */
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+
+  /* Apply custom scrollbar styling */
+  ::-webkit-scrollbar {
+    width: 8px;
+    background-color: var(--scrollbarBG);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    border-radius: 4px;
+    background-color: var(--scrollbarColor);
+  }
+}
+
 }  
 
 @layer components {

@@ -1,7 +1,7 @@
 import React from 'react';
 import {NextUIProvider} from "@nextui-org/react";
 import { ChakraProvider } from '@chakra-ui/react'
-import { Link, Route, Routes, useNavigate } from 'react-router-dom';
+import { Route, Routes, useNavigate } from 'react-router-dom';
 import './globals.css'
 import Signinform from './_auth/forms/signinform';
 import Signupform from './_auth/forms/signupform';

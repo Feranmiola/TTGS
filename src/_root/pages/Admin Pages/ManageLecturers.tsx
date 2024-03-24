@@ -86,7 +86,7 @@ const lecturersData = [
     staffId: "21/2211",
     name: "Brown Cindy Vazquez",
     email: "mary.johnson@company.com",
-    department: "Software Engineering",
+    department: "Computer Science",
   },
   {
     staffId: "21/2211",
@@ -176,36 +176,21 @@ const ManageLecturers = () => {
       Header: "Name",
       accessor: "name",
       Cell: ({ value }: { value: string }) => (
-        <Highlighter
-          highlightClassName="YourHighlightClass"
-          searchWords={[searchValue]}
-          autoEscape={true}
-          textToHighlight={value?.toString()}
-        />
+        <span>{value === searchValue ? value : ""}</span>
       ),
     },
     {
       Header: "Email",
       accessor: "email",
       Cell: ({ value }: { value: string }) => (
-        <Highlighter
-          highlightClassName="YourHighlightClass"
-          searchWords={[searchValue]}
-          autoEscape={true}
-          textToHighlight={value?.toString()}
-        />
+        <span>{value === searchValue ? value : ""}</span>
       ),
     },
     {
       Header: "Department",
       accessor: "department",
       Cell: ({ value }: { value: string }) => (
-        <Highlighter
-          highlightClassName="YourHighlightClass"
-          searchWords={[searchValue]}
-          autoEscape={true}
-          textToHighlight={value?.toString()}
-        />
+        <span>{value === searchValue ? value : ""}</span>
       ),
     },
   ];
@@ -221,31 +206,32 @@ const ManageLecturers = () => {
 
   return (
     <div className="">
-      <div className="flex flex-row">
-        <h1 className="h2-bold py-14 px-16 text-blue-600">Manage Lecturers</h1>
-      </div>
-      <div className="bg-white rounded p-6">
-        <Box mb="1rem">
-          <Flex justify="space-between" align="center">
-            <InputGroup w="50%">
-              <InputLeftAddon children="Search:" />
-              <Input
-                value={searchValue}
-                onChange={handleSearch}
-                placeholder="Type something to search..."
-              />
-            </InputGroup>
-            <Link href="#">
-              <Center>
-                <Button className="shad-button_primary mt-4 w-40">Add</Button>
-              </Center>
-            </Link>
-          </Flex>
+    <div className="flex flex-row">
+      <h1 className="h2-bold py-14 px-16 text-blue-600">Manage Lecturers</h1>
+    </div>
+    <div className="bg-white rounded p-6">
+      <Box mb="1rem">
+        <Flex justify="space-between" align="center">
+          <InputGroup w="50%">
+            <InputLeftAddon children="Search:" />
+            <Input
+              value={searchValue}
+              onChange={handleSearch}
+              placeholder="Type something to search..."
+            />
+          </InputGroup>
+          <Link href="#">
+            <Center>
+              <Button className="shad-button_primary mt-4 w-40">Add</Button>
+            </Center>
+          </Link>
+        </Flex>
 
-            <TableContainer overflowY="auto">
-              <Table variant="striped" colorScheme="gray" className="min-w-full divide-y divide-gray-300">
-                <Thead>
-                  <Tr>
+        <TableContainer overflowY="auto">
+          {searchValue ? (
+            <Table variant="striped" colorScheme="gray" className="min-w-full divide-y divide-gray-300">
+              <Thead>
+                <Tr>
                   <Th className="px-6 py-3 whitespace-nowrap">Staff ID</Th>
                   <Th className="px-6 py-3 whitespace-nowrap">Name</Th>
                   <Th className="px-6 py-3 whitespace-nowrap">Email</Th>
@@ -254,32 +240,17 @@ const ManageLecturers = () => {
                 </Tr>
               </Thead>
               <Tbody>
-                {currentData.map(({ staffId, name, email, department }, index) => (
-                    <Tr key={index}>
-                    <Td className="px-6 py-4 whitespace-nowrap">{staffId}</Td>
-                    <Td className="px-6 py-4 whitespace-nowrap">
-                      <Highlighter
-                        highlightClassName="YourHighlightClass"
-                        searchWords={[searchValue]}
-                        autoEscape={true}
-                        textToHighlight={name}
-                      />
+                {filteredRows.map(({ staffId, name, email, department }, index) => (
+                  <Tr key={index}>
+                      <Td className="px-6 py-4 whitespace-nowrap">{staffId}</Td>
+                      <Td className="px-6 py-4 whitespace-nowrap">
+                      {name && <span>{name}</span>}
                     </Td>
                     <Td className="px-6 py-4 whitespace-nowrap">
-                      <Highlighter
-                        highlightClassName="YourHighlightClass"
-                        searchWords={[searchValue]}
-                        autoEscape={true}
-                        textToHighlight={email}
-                      />
+                      {email && <span>{email}</span>}
                     </Td>
                     <Td className="px-6 py-4 whitespace-nowrap">
-                      <Highlighter
-                        highlightClassName="YourHighlightClass"
-                        searchWords={[searchValue]}
-                        autoEscape={true}
-                        textToHighlight={department}
-                      />
+                      {department && <span>{department}</span>}
                     </Td>
                     <Td className="px-6 py-4 whitespace-nowrap">
                       <Spacer />
@@ -305,36 +276,85 @@ const ManageLecturers = () => {
                 ))}
               </Tbody>
             </Table>
-          </TableContainer>
+          ) : (
+              <Table variant="striped" colorScheme="gray" className="min-w-full divide-y divide-gray-300">
+                <Thead>
+                  <Tr>
+                  <Th className="px-6 py-3 whitespace-nowrap">Staff ID</Th>
+                  <Th className="px-6 py-3 whitespace-nowrap">Name</Th>
+                  <Th className="px-6 py-3 whitespace-nowrap">Email</Th>
+                  <Th className="px-6 py-3 whitespace-nowrap">Department</Th>
+                  <Th className="px-6 py-3 whitespace-nowrap"></Th>
+                </Tr>
+              </Thead>
+              <Tbody>
+              {currentData.map(({ staffId, name, email, department }, index) => (
+                  <Tr key={index}>
+                    <Td className="px-6 py-4 whitespace-nowrap">{staffId}</Td>
+                    <Td className="px-6 py-4 whitespace-nowrap">{name}</Td>
+                    <Td className="px-6 py-4 whitespace-nowrap">{email}</Td>
+                    <Td className="px-6 py-4 whitespace-nowrap">
+                      {department}
+                    </Td>
+                    <Td className="px-6 py-4 whitespace-nowrap">
+                      <Spacer />
+                      <Flex
+                        className=""
+                        justify="space-between"
+                        align="center"
+                      >
+                        <Button
+                          variant="ghost"
+                          leftIcon={<EditIcon />}
+                          size="xs"
+                        ></Button>
 
-          <Flex
-            className="justify-between items-center my-4"
-            justify="space-between"
-            align="center"
+                        <Button
+                          variant="ghost"
+                          leftIcon={<DeleteIcon />}
+                          size="xs"
+                        ></Button>
+                      </Flex>
+                    </Td>
+                  </Tr>
+                ))}
+              </Tbody>
+            </Table>
+          )}
+        </TableContainer>
+
+        {searchValue && !filteredRows.length && (
+          <div className="text-red-500 text-sm mx-auto mt-2">No Matches Found.</div>
+        )}
+
+        <Flex
+          className="justify-between items-center my-4"
+          justify="space-between"
+          align="center"
+        >
+          <Button
+            disabled={currentPage === 1}
+            onClick={handlePrevPage}
+            variant="link"
+            size="xs"
           >
-            <Button
-              disabled={currentPage === 1}
-              onClick={handlePrevPage}
-              variant="link"
-              size="xs"
-            >
-              {"<< Previous"}
-            </Button>
-            <div>
-              <StyledText>{`Page ${currentPage} of ${totalPages}`}</StyledText>
-            </div>
-            <Button
-              disabled={currentPage >= totalPages}
-              onClick={handleNextPage}
-              variant="link"
-              size="xs"
-            >
-              {"Next >>"}
-            </Button>
-          </Flex>
-        </Box>
-      </div>
+            {"<< Previous"}
+          </Button>
+          <div>
+            <StyledText>{`Page ${currentPage} of ${totalPages}`}</StyledText>
+          </div>
+          <Button
+            disabled={currentPage >= totalPages}
+            onClick={handleNextPage}
+            variant="link"
+            size="xs"
+          >
+            {"Next >>"}
+          </Button>
+        </Flex>
+      </Box>
     </div>
+  </div>
   );
 };
 

@@ -5,6 +5,7 @@ import {TimetableComponent} from "@/lib/timetableJson/timetableRender"
 import timetableData from '@/lib/timetableJson/100SE.json'
 import timetableData2 from '@/lib/timetableJson/200SE.json'
 import timetableData3 from '@/lib/timetableJson/400SE.json'
+import { useNavigate } from 'react-router-dom';
 import { Loader } from "lucide-react"
 
 import { Tabs, TabList, TabPanels, Tab, TabPanel } from '@chakra-ui/react'
@@ -16,7 +17,8 @@ import {ScrollShadow} from "@nextui-org/react";
 const Home = () => {
   const tableRef = useRef(null);
   const isGenerating = false;
-  const isGenerated = false;
+  const isGenerated = true;
+
 
   const exportToPDF = () => {
     const opt = {
@@ -65,22 +67,22 @@ const Home = () => {
       </div>
 
       <div className="place-content-center justify-center">
-        <Tabs variant='soft-rounded' colorScheme='blue' className='mt-10 bg-white'>
+        <Tabs align='center' variant='soft-rounded' colorScheme='blue' isLazy className='mt-10 bg-white rounded'>
           <TabList className='mx-2 py-3'>
-            <Tab>Software Engineering</Tab>
-            <Tab>Computer Science</Tab>
-            <Tab isDisabled>Computer Tech</Tab>
-            <Tab isDisabled>Computer Information Systems</Tab>
-            <Tab isDisabled>Information Technology</Tab>
+            <Tab className='hover:bg-blue-100'>Software Engineering</Tab>
+            <Tab className='hover:bg-blue-100'>Computer Science</Tab>
+            <Tab className='hover:bg-blue-100' isDisabled>Computer Tech</Tab>
+            <Tab className='hover:bg-blue-100' isDisabled>Computer Information Systems</Tab>
+            <Tab className='hover:bg-blue-100' isDisabled>Information Technology</Tab>
           </TabList>
           <TabPanels>
             <TabPanel>
                 <Tabs colorScheme='blue'>
               <TabList>
-                <Tab>100</Tab>
-                <Tab>200</Tab>
-                <Tab>300</Tab>
-                <Tab>400</Tab>
+                <Tab className='hover:bg-blue-100'>100</Tab>
+                <Tab className='hover:bg-blue-100'>200</Tab>
+                <Tab className='hover:bg-blue-100'>300</Tab>
+                <Tab className='hover:bg-blue-100'>400</Tab>
               </TabList>
               <TabPanels>
                 <TabPanel className='justify-center items-center'> 
@@ -97,7 +99,7 @@ const Home = () => {
                           )}
                         </Button>
                         
-                        {isGenerated? (
+                        {!isGenerated? (
                             <div className="flex-center gap-2 ">
                               {isGenerating? (
                                 <div className="flex-center gap-2 ">
@@ -137,7 +139,7 @@ const Home = () => {
                           )}
                         </Button>
                         
-                        {isGenerated? (
+                        {!isGenerated? (
                             <div className="flex-center gap-2 ">
                               {isGenerating? (
                                 <div className="flex-center gap-2 ">
@@ -183,7 +185,7 @@ const Home = () => {
                           )}
                         </Button>
                         
-                        {isGenerated? (
+                        {!isGenerated? (
                             <div className="flex-center gap-2 ">
                               {isGenerating? (
                                 <div className="flex-center gap-2 ">
@@ -216,10 +218,10 @@ const Home = () => {
             <TabPanel>
             <Tabs colorScheme='blue'>
               <TabList>
-                <Tab>100</Tab>
-                <Tab>200</Tab>
-                <Tab>300</Tab>
-                <Tab>400</Tab>
+                <Tab className='hover:bg-blue-100'>100</Tab>
+                <Tab className='hover:bg-blue-100'>200</Tab>
+                <Tab className='hover:bg-blue-100'>300</Tab>
+                <Tab className='hover:bg-blue-100'>400</Tab>
               </TabList>
               <TabPanels>
                 <TabPanel className='justify-center items-center'> 
@@ -236,7 +238,7 @@ const Home = () => {
                           )}
                         </Button>
                         
-                        {isGenerated? (
+                        {!isGenerated? (
                             <div className="flex-center gap-2 ">
                               {isGenerating? (
                                 <div className="flex-center gap-2 ">
@@ -276,7 +278,7 @@ const Home = () => {
                           )}
                         </Button>
                         
-                        {isGenerated? (
+                        {!isGenerated? (
                             <div className="flex-center gap-2 ">
                               {isGenerating? (
                                 <div className="flex-center gap-2 ">
@@ -322,7 +324,7 @@ const Home = () => {
                           )}
                         </Button>
                         
-                        {isGenerated? (
+                        {!isGenerated? (
                             <div className="flex-center gap-2 ">
                               {isGenerating? (
                                 <div className="flex-center gap-2 ">
@@ -355,10 +357,10 @@ const Home = () => {
             <TabPanel>
             <Tabs colorScheme='blue'>
               <TabList>
-                <Tab>100</Tab>
-                <Tab>200</Tab>
-                <Tab>300</Tab>
-                <Tab>400</Tab>
+                <Tab className='hover:bg-blue-100'>100</Tab>
+                <Tab className='hover:bg-blue-100'>200</Tab>
+                <Tab className='hover:bg-blue-100'>300</Tab>
+                <Tab className='hover:bg-blue-100'>400</Tab>
               </TabList>
               <TabPanels>
                 <TabPanel className='justify-center items-center'> 
@@ -386,10 +388,10 @@ const Home = () => {
             <TabPanel>
             <Tabs colorScheme='blue'>
               <TabList>
-                <Tab>100</Tab>
-                <Tab>200</Tab>
-                <Tab>300</Tab>
-                <Tab>400</Tab>
+                <Tab className='hover:bg-blue-100'>100</Tab>
+                <Tab className='hover:bg-blue-100'>200</Tab>
+                <Tab className='hover:bg-blue-100'>300</Tab>
+                <Tab className='hover:bg-blue-100'>400</Tab>
               </TabList>
               <TabPanels>
                 <TabPanel className='justify-center items-center'> 
@@ -417,10 +419,10 @@ const Home = () => {
             <TabPanel>
             <Tabs colorScheme='blue'>
               <TabList>
-                <Tab>100</Tab>
-                <Tab>200</Tab>
-                <Tab>300</Tab>
-                <Tab>400</Tab>
+                <Tab className='hover:bg-blue-100'>100</Tab>
+                <Tab className='hover:bg-blue-100'>200</Tab>
+                <Tab className='hover:bg-blue-100'>300</Tab>
+                <Tab className='hover:bg-blue-100'>400</Tab>
               </TabList>
               <TabPanels>
                 <TabPanel className='justify-center items-center'> 

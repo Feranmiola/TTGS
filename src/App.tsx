@@ -1,7 +1,7 @@
 import React from 'react';
 import {NextUIProvider} from "@nextui-org/react";
 import { ChakraProvider } from '@chakra-ui/react'
-import { Route, Routes } from 'react-router-dom';
+import { Link, Route, Routes, useNavigate } from 'react-router-dom';
 import './globals.css'
 import Signinform from './_auth/forms/signinform';
 import Signupform from './_auth/forms/signupform';
@@ -31,7 +31,13 @@ import { Toaster } from "@/components/ui/toaster";
 
 
 function App() {
-
+  const isAuthenticated = false;
+  const navigate = useNavigate();
+  
+  if(!isAuthenticated){
+    navigate('/sign-in');
+  }
+  
   return (
     <NextUIProvider>
       <ChakraProvider>

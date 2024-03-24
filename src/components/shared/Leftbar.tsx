@@ -29,7 +29,7 @@ const Leftbar = () => {
     function useActive(path: string) {
       const location = useLocation();
       let isActive = location.pathname === path;
-       return isActive ? 'text-blue-600' : '';
+       return isActive ? 'text-blue-600 bg-slate-100' : '';
     }
 
   return (    

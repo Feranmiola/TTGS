@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import Leftbar from '@/components/shared/Leftbar';
 
 const Rootlayout = () => {
-  const isAuthenticated = false;
+  const isAuthenticated = true;
   const navigate = useNavigate();
   
   if(!isAuthenticated){

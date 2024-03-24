@@ -31,7 +31,7 @@ import { Toaster } from "@/components/ui/toaster";
 
 
 function App() {
-  const isAuthenticated = false;
+  const isAuthenticated = true;
   const navigate = useNavigate();
   
   if(!isAuthenticated){

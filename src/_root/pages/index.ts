@@ -10,8 +10,10 @@ export {default as ManageCourses} from './Admin Pages/ManageCourse';
 export {default as ManageDepartment} from './Admin Pages/ManageDepartments';
 export {default as ManageLectureHalls} from './Admin Pages/ManageLectureHalls';
 export {default as ManageClassGroup} from './Admin Pages/ManageClassGroups';
+export {default as ManagePreferences} from './Admin Pages/ManagePreferences';
 
 export {default as TimeSettings} from './Admin Pages/TimeSettings';
 
 export {default as StudentHome} from './StudentPages/studentHome';
 export {default as LecturerHome} from './LecturerPages/LecturerHome';
+export {default as SetPreferences} from './LecturerPages/SetPreferences';

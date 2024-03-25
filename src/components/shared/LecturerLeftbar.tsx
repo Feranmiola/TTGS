@@ -1,57 +1,75 @@
-import { lecturerSidebarLinks } from '@/constants'
-import { INavLink } from '@/types'
-import { NavLink, useLocation } from 'react-router-dom'
-import { Button } from '../ui/button'
+import React from 'react'
+import { Sidebar, Menu, MenuItem, SubMenu } from 'react-pro-sidebar';
+import HomeIcon from '@mui/icons-material/Home';
+import LibraryBooksIcon from '@mui/icons-material/LibraryBooks';
+import PeopleIcon from '@mui/icons-material/People';
+import Groups2Icon from '@mui/icons-material/Groups2';
+import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
+import PersonIcon from '@mui/icons-material/Person';
+import LogoutIcon from '@mui/icons-material/Logout';
+import { useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+
+import {
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+} from "@/components/ui/avatar"
+
+import {
+  Card,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card"
+
 
 const LecturerLeftbar = () => {
 
-    const {pathname} = useLocation();
+    function useActive(path: string) {
+      const location = useLocation();
+      let isActive = location.pathname === path;
+       return isActive ? 'text-blue-600' : '';
+    }
+
   return (    
-    <nav className='leftsidebar bg-white'>
-        
-        <div className='flex flex-col'>
-            
-            
-            <ul className='flex flex-col pt-40'>
-            
-            <p className='text-light-4'>Your Dashboard</p>
-            
-                {lecturerSidebarLinks.map((link: INavLink) => {
+    <Sidebar className='fixed h-screen bg-white'>
+    <div className='mx-10'>
+      <div className='mt-30 py-10'>      
+         
+          <Card className='bg-slate-100 w-40px'>
 
-                    const isActive = pathname ===  link.route
+            <CardHeader className='flex flex-row'>
+              
+              <Avatar className="">
+                <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
+                <AvatarFallback>CN</AvatarFallback>
+              </Avatar>
+              
+              <div>
+                <CardTitle className='base-semibold ml-1'>Dr Adetunji</CardTitle>
+                <CardDescription className='ml-4'>Lecturer</CardDescription>
+              </div>
 
-                    return(
-                        <li key={link.label} className={"leftsidebar-link"}>
-                            
-                            <NavLink to={link.route}
-                            
-                            className="flex gap-4 items-center ">
+            </CardHeader>
+          
+          </Card>  
 
-                                <img
-                                src={link.imgURL}
-                                alt={link.label}
-                                className='group-hover: invert-white'/>
-
-                                {link.label}
-                                
-                            </NavLink>
-                        </li>
-                    )
-                })}
-            </ul>
+      </div>
+    </div>
+      <Menu className=''>
+        <div className='items-center py-30 mt-10'>
+        <div className='px-4 text-gray-500'>Your Dashboard</div>
+          <MenuItem component={<Link to="/LecturerHome" />} icon={<CalendarMonthIcon />} className={`hover:text-blue-600 ${useActive('/LecturerHome')}`}>View Timetable</MenuItem>
+          <MenuItem component={<Link to="/SetPreferences" />} icon={<CalendarMonthIcon />} className={`hover:text-blue-600 ${useActive('/SetPreferences')}`}>Set Preference</MenuItem>
+          
+          
         </div>
-        <div className='flex gap-4'>
-                <Button variant="ghost" className='shad-button_ghost'>
-                    <img
-                    src='/assets/icons/logout.svg'
-                    alt='logout'/>
-                    <p className='small-medium lg: base-medium'>Logout</p>
-                </Button>
-                
-                
-            </div>
-    </nav>
-    
+        
+        <MenuItem component={<Link to="/SignedOut" />} icon={<LogoutIcon />} className='py-20 hover:text-blue-600'>Logout</MenuItem>
+      </Menu>
+    </Sidebar>
+   
   )
 }
 

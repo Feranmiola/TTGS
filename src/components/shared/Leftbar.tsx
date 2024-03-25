@@ -62,10 +62,12 @@ const Leftbar = () => {
         <div className='px-4 text-gray-500'>Your Dashboard</div>
           <MenuItem component={<Link to="/" />} icon={<CalendarMonthIcon />} className={`hover:text-blue-600 ${useActive('/')}`}>Generate Timetable</MenuItem>
           <MenuItem component={<Link to="/ManageLecturers" />} icon={<PersonIcon />} className={`hover:text-blue-600 ${useActive('/ManageLecturers')}`}>Manage Lecturers</MenuItem>
+          <MenuItem component={<Link to="/ManagePreferences" />} icon={<PersonIcon />} className={`hover:text-blue-600 ${useActive('/ManagePreferences')}`}>Manage Prefernces</MenuItem>
           <MenuItem component={<Link to="/ManageCourses" />} icon={<LibraryBooksIcon />} className={`hover:text-blue-600 ${useActive('/ManageCourses')}`}>Manage Courses</MenuItem>
           <MenuItem component={<Link to="/ManageClassGroups" />} icon={<PeopleIcon />} className={`hover:text-blue-600 ${useActive('/ManageClassGroups')}`}>Manage CLass Groups</MenuItem>
           <MenuItem component={<Link to="/ManageDepartments" />} icon={<Groups2Icon />} className={`hover:text-blue-600 ${useActive('/ManageDepartments')}`}>Manage Departments</MenuItem>
           <MenuItem component={<Link to="/ManageLectureHalls" />} icon={<HomeIcon />} className={`hover:text-blue-600 ${useActive('/ManageLectureHalls')}`}>Manage Lecture Halls</MenuItem>
+          
           
         </div>
         

@@ -65,3 +65,10 @@ export const AddNewClassGroupSchema = z.object({
     outstandingHours :z.string(),
     semester:z.string()
   })
+
+  export const AddNewPreference = z.object({
+    staffid: z.string().min(1),
+    preference: z.string(),
+    department: z.string(),
+    
+  })

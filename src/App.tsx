@@ -19,6 +19,8 @@ import {  AddNewClassGroup,
           ManageCourses, 
           ManageDepartment, 
           ManageLectureHalls, 
+          ManagePreferences, 
+          SetPreferences, 
           StudentHome, } from './_root/pages';
 
           
@@ -65,14 +67,17 @@ function App() {
               <Route path='/ManageDepartments' element = { <ManageDepartment/> }/>
               <Route path='/ManageLectureHalls' element = { <ManageLectureHalls/> }/>
               <Route path='/ManageClassGroups' element = { <ManageClassGroup/> }/>
+              <Route path='/ManagePreferences' element = { <ManagePreferences/> }/>
 
               <Route path='/AddNewLecturer' element = { <AddNewLecturer/> }/>
               <Route path='/AddNewCourse' element = { <AddNewCourse/> }/>
               <Route path='/AddNewDepartment' element = { <AddNewDepartment/> }/>
               <Route path='/AddNewLectureHalls' element = { <AddNewLectureHall/> }/>
               <Route path='/AddNewClassGroups' element = { <AddNewClassGroup/> }/>
+              <Route path='/SetPreferences' element = { <SetPreferences/> }/>
               
               <Route path='/StudentHome' element = { <StudentHome/> }/>
+              <Route path='/LecturerHome' element = { <LecturerHome/> }/>
               <Route path='/LecturerHome' element = { <LecturerHome/> }/>
 
 

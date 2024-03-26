@@ -1,4 +1,4 @@
-import React, { useState, ReactNode } from "react";
+import React, { useState, ReactNode, useEffect } from "react";
 import {
   Table,
   Thead,
@@ -58,6 +58,61 @@ interface StyledTextProps {
 
 const PAGE_SIZE = 7;
 
+export type Course = {
+  name: string,
+  code: string,
+  classType: string,
+  instructors: Array<string>,
+  units: number,
+  teachingHours: number,
+  outstandingHours: number,
+  semester: number,
+  department: string,
+  level: number,
+  timeSlot: Array<number>,
+  timeSlot2: Array<number>,
+}
+
+function CourseData({ code, name, department, level, classType, instructors, units, teachingHours, outstandingHours, semester}: Course, index: number) {
+  // console.log(instructors)
+  return (
+    <>
+      <Tr key={index}>
+          <Td className="px-6 py-4 whitespace-nowrap">{code}</Td>
+          <Td className="px-6 py-4 whitespace-nowrap">{name}</Td>
+          <Td className="px-6 py-4 whitespace-nowrap">{department}</Td>
+          <Td className="px-6 py-4 whitespace-nowrap">{level}</Td>
+          <Td className="px-6 py-4 whitespace-nowrap">{classType}</Td>
+          <Td className="px-6 py-4 whitespace-nowrap">{instructors[0]}</Td>
+          <Td className="px-6 py-4 whitespace-nowrap">{units}</Td>
+          <Td className="px-6 py-4 whitespace-nowrap">{teachingHours}</Td>
+          <Td className="px-6 py-4 whitespace-nowrap">{outstandingHours}</Td>
+          <Td className="px-6 py-4 whitespace-nowrap">{semester}</Td>
+        <Td className="px-6 py-4 whitespace-nowrap">
+          <Spacer />
+          <Flex
+            className=""
+            justify="space-between"
+            align="center"
+          >
+            <Button
+              variant="ghost"
+              leftIcon={<EditIcon />}
+              size="xs"
+            ></Button>
+
+            <Button
+              variant="ghost"
+              leftIcon={<DeleteIcon />}
+              size="xs"
+            ></Button>
+          </Flex>
+        </Td>
+      </Tr>
+    </>
+  )
+}
+
 const ManageCourses = () => {
   const [searchValue, setSearchValue] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
@@ -68,6 +123,17 @@ const ManageCourses = () => {
       .toLowerCase()
       .includes(searchValue.toLowerCase())
   );
+
+  const [courses, setCourses] = useState<Array<any>>([]);
+
+  useEffect(() => {
+    fetch('http://localhost:3000/courses')
+    .then(response => response.json())
+    .then(data => setCourses(data))
+    .catch(error => console.log(error)
+    )
+  }, [])
+
 
 
   const currentData = filteredRows.slice(
@@ -123,7 +189,7 @@ const ManageCourses = () => {
             </Center>
           </Link>
         </Flex>
-        <ScrollArea style={{ height: '500px', width: '1230px' }} >
+        <ScrollArea style={{ height: '500px' }} >
           <ScrollBar orientation="vertical" className="w-2 fill-black"/>
         <TableContainer overflowY="auto">
           {searchValue ? (
@@ -198,40 +264,9 @@ const ManageCourses = () => {
                 </Tr>
               </Thead>
               <Tbody>
-              {currentData.map(({ courseCode, courseName, department, level, type, assignedLecturer, courseUnits, teachingHours, outstandingHours, semester }, index) => (
-                  <Tr key={index}>
-                    <Td className="px-6 py-4 whitespace-nowrap">{courseCode}</Td>
-                      <Td className="px-6 py-4 whitespace-nowrap">{courseName}</Td>
-                      <Td className="px-6 py-4 whitespace-nowrap">{department}</Td>
-                      <Td className="px-6 py-4 whitespace-nowrap">{level}</Td>
-                      <Td className="px-6 py-4 whitespace-nowrap">{type}</Td>
-                      <Td className="px-6 py-4 whitespace-nowrap">{assignedLecturer}</Td>
-                      <Td className="px-6 py-4 whitespace-nowrap">{courseUnits}</Td>
-                      <Td className="px-6 py-4 whitespace-nowrap">{teachingHours}</Td>
-                      <Td className="px-6 py-4 whitespace-nowrap">{outstandingHours}</Td>
-                      <Td className="px-6 py-4 whitespace-nowrap">{semester}</Td>
-                    <Td className="px-6 py-4 whitespace-nowrap">
-                      <Spacer />
-                      <Flex
-                        className=""
-                        justify="space-between"
-                        align="center"
-                      >
-                        <Button
-                          variant="ghost"
-                          leftIcon={<EditIcon />}
-                          size="xs"
-                        ></Button>
-
-                        <Button
-                          variant="ghost"
-                          leftIcon={<DeleteIcon />}
-                          size="xs"
-                        ></Button>
-                      </Flex>
-                    </Td>
-                  </Tr>
-                ))}
+              {
+                courses.map((course, index) => <CourseData {...course} index={index} />)
+              }
               </Tbody>
             </Table>
           )}

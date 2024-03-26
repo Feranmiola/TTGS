@@ -61,8 +61,6 @@ const LecturerLeftbar = () => {
         <div className='items-center py-30 mt-10'>
         <div className='px-4 text-gray-500'>Your Dashboard</div>
           <MenuItem component={<Link to="/LecturerHome" />} icon={<CalendarMonthIcon />} className={`hover:text-blue-600 ${useActive('/LecturerHome')}`}>View Timetable</MenuItem>
-          <MenuItem component={<Link to="/SetPreferences" />} icon={<CalendarMonthIcon />} className={`hover:text-blue-600 ${useActive('/SetPreferences')}`}>Set Preference</MenuItem>
-          
           
         </div>
         

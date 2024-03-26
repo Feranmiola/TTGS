@@ -80,4 +80,4 @@ type Course = {
   });
 
 
-export default TimetableComponent;
+export {TimetableComponent};

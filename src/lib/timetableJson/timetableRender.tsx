@@ -40,8 +40,6 @@ type Course = {
   const TimetableComponent = forwardRef<HTMLDivElement, { data: TimeTableData[] }>(({ data }, ref) => {
     const timeSlots = Array.from({ length: 12 }, (_, i) => i + 7);
     const daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
-
-    console.log(data);
     
   
     return (

@@ -94,7 +94,7 @@ const Home = () => {
   function generate() {
     let numGroups;
 
-    if(selected.level == 400) numGroups = 2;
+    if(selected.level == 400 || selected.level == 300) numGroups = 2;
     else numGroups = 4;
 
     const dataToSend = {

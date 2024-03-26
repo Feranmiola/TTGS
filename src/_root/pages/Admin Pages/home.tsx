@@ -186,7 +186,7 @@ console.log(selected);
         <Tabs align='center' variant='soft-rounded' colorScheme='blue' isLazy className='mt-10 bg-white rounded'>
           <TabList className='mx-2 py-3'>
             <Tab className='hover:bg-blue-100'>Software Engineering</Tab>
-            <Tab className='hover:bg-blue-100'>Computer Science</Tab>
+            <Tab className='hover:bg-blue-100' isDisabled>Computer Science</Tab>
             <Tab className='hover:bg-blue-100' isDisabled>Computer Tech</Tab>
             <Tab className='hover:bg-blue-100' isDisabled>Computer Information Systems</Tab>
             <Tab className='hover:bg-blue-100' isDisabled>Information Technology</Tab>
@@ -217,6 +217,7 @@ console.log(selected);
                 </Tab>
               </TabList>
               <TabPanels>
+                {/* SE */}
                 {
                   levels.map(level => <MyPanels key={level} exportToPDF={exportToPDF} isGenerated={isGenerated} isGenerating={isGenerating} timeTable={timeTables.filter((table: any) => table.department == "SE" && table.level == level)} tableRef={tableRef} />)
                 }
@@ -232,6 +233,7 @@ console.log(selected);
                 <Tab className='hover:bg-blue-100'>400</Tab>
               </TabList>
               <TabPanels>
+                {/* CS */}
                 {
                   levels.map(level => <MyPanels key={level} exportToPDF={exportToPDF} isGenerated={isGenerated} isGenerating={isGenerating} timeTable={timeTables.filter((table: any) => table.department == "CS" && table.level == level)} tableRef={tableRef} />)
                 }
@@ -247,6 +249,7 @@ console.log(selected);
                 <Tab className='hover:bg-blue-100'>400</Tab>
               </TabList>
               <TabPanels>
+                {/* CT */}
                 {
                   levels.map(level => <MyPanels key={level} exportToPDF={exportToPDF} isGenerated={isGenerated} isGenerating={isGenerating} timeTable={timeTables.filter((table: any) => table.department == "CT" && table.level == level)} tableRef={tableRef} />)
                 }
@@ -262,6 +265,7 @@ console.log(selected);
                 <Tab className='hover:bg-blue-100'>400</Tab>
               </TabList>
               <TabPanels>
+                {/* CIS */}
                 {
                   levels.map(level => <MyPanels key={level} exportToPDF={exportToPDF} isGenerated={isGenerated} isGenerating={isGenerating} timeTable={timeTables.filter((table: any) => table.department == "CIS" && table.level == level)} tableRef={tableRef} />)
                 }
@@ -277,6 +281,7 @@ console.log(selected);
                 <Tab className='hover:bg-blue-100'>400</Tab>
               </TabList>
               <TabPanels>
+                {/* IT */}
                 {
                   levels.map(level => <MyPanels key={level} exportToPDF={exportToPDF} isGenerated={isGenerated} isGenerating={isGenerating} timeTable={timeTables.filter((table: any) => table.department == "IT" && table.level == level)} tableRef={tableRef} />)
                 }

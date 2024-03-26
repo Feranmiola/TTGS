@@ -117,14 +117,10 @@ const ManageCourses = () => {
   const [searchValue, setSearchValue] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const navigate = useNavigate();
-  const filteredRows = courseData.filter((row) =>
-    Object.values(row)
-      .join(" ")
-      .toLowerCase()
-      .includes(searchValue.toLowerCase())
-  );
-
   const [courses, setCourses] = useState<Array<any>>([]);
+  const filteredRows = courses.filter((row) =>row.name.includes(searchValue));
+
+  
 
   useEffect(() => {
     fetch('http://localhost:3000/courses')
@@ -170,9 +166,9 @@ const ManageCourses = () => {
   return (
     <div className="">
     <div className="flex flex-row">
-      <h1 className="h2-bold py-14 px-16 text-blue-600">Manage Lecturers</h1>
+      <h1 className="h2-bold py-14 px-16 text-blue-600">Manage Courses</h1>
     </div>
-    <div className="bg-white rounded p-6">
+    <div className="bg-white rounded p-6 flex-grow w-full">
       <Box mb="1rem">
         <Flex justify="space-between" align="center">
           <InputGroup w="50%">
@@ -210,15 +206,15 @@ const ManageCourses = () => {
                 </Tr>
               </Thead>
               <Tbody>
-                  {filteredRows.map(({ courseCode, courseName, department, level, type, assignedLecturer, courseUnits, teachingHours, outstandingHours, semester }, index) => (
+                  {filteredRows.map(({ code, name, department, level, classType, instructors, units, teachingHours, outstandingHours, semester}, index) => (
                   <Tr key={index}>
-                      <Td className="px-6 py-4 whitespace-nowrap">{courseCode}</Td>
-                      <Td className="px-6 py-4 whitespace-nowrap">{courseName}</Td>
+                      <Td className="px-6 py-4 whitespace-nowrap">{code}</Td>
+                      <Td className="px-6 py-4 whitespace-nowrap">{name}</Td>
                       <Td className="px-6 py-4 whitespace-nowrap">{department}</Td>
                       <Td className="px-6 py-4 whitespace-nowrap">{level}</Td>
-                      <Td className="px-6 py-4 whitespace-nowrap">{type}</Td>
-                      <Td className="px-6 py-4 whitespace-nowrap">{assignedLecturer}</Td>
-                      <Td className="px-6 py-4 whitespace-nowrap">{courseUnits}</Td>
+                      <Td className="px-6 py-4 whitespace-nowrap">{classType}</Td>
+                      <Td className="px-6 py-4 whitespace-nowrap">{instructors[0]}</Td>
+                      <Td className="px-6 py-4 whitespace-nowrap">{units}</Td>
                       <Td className="px-6 py-4 whitespace-nowrap">{teachingHours}</Td>
                       <Td className="px-6 py-4 whitespace-nowrap">{outstandingHours}</Td>
                       <Td className="px-6 py-4 whitespace-nowrap">{semester}</Td>

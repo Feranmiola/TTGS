@@ -2,10 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import html2pdf from 'html2pdf.js'
 import { Button } from "@/components/ui/button"
 import {TimetableComponent} from "@/lib/timetableJson/timetableRender"
-import timetableData from '@/lib/timetableJson/100SE.json'
-import timetableData2 from '@/lib/timetableJson/200SE.json'
-import timetableData3 from '@/lib/timetableJson/400SE.json'
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 import { Loader } from "lucide-react"
 
 import { Tabs, TabList, TabPanels, Tab, TabPanel } from '@chakra-ui/react'
@@ -19,12 +16,9 @@ interface MyPanelsProps {
   isGenerating: boolean,
   timeTable: any,
   tableRef: any,
-  setSelected: any,
-  level: number,
-  dept: string
 }
 
-function MyPanels({level, dept, exportToPDF, isGenerated, isGenerating, timeTable, tableRef, setSelected}: MyPanelsProps) {
+function MyPanels({exportToPDF, isGenerated, isGenerating, timeTable, tableRef}: MyPanelsProps) {
 
   return (
     <>
@@ -159,6 +153,8 @@ const Home = () => {
     html2pdf().from(content).set(opt).save();
 };
 
+console.log(timeTables);
+
 console.log(selected);
 
 
@@ -222,7 +218,7 @@ console.log(selected);
               </TabList>
               <TabPanels>
                 {
-                  levels.map(level => <MyPanels key={level} level={level} dept={"SE"} setSelected={setSelected} exportToPDF={exportToPDF} isGenerated={isGenerated} isGenerating={isGenerating} timeTable={timeTables.filter((table: any) => table.department == "SE" && table.level == level)} tableRef={tableRef} />)
+                  levels.map(level => <MyPanels key={level} exportToPDF={exportToPDF} isGenerated={isGenerated} isGenerating={isGenerating} timeTable={timeTables.filter((table: any) => table.department == "SE" && table.level == level)} tableRef={tableRef} />)
                 }
               </TabPanels>
             </Tabs>
@@ -237,7 +233,7 @@ console.log(selected);
               </TabList>
               <TabPanels>
                 {
-                  levels.map(level => <MyPanels key={level} level={level} dept={"CS"} setSelected={setSelected} exportToPDF={exportToPDF} isGenerated={isGenerated} isGenerating={isGenerating} timeTable={timeTables.filter((table: any) => table.department == "CS" && table.level == level)} tableRef={tableRef} />)
+                  levels.map(level => <MyPanels key={level} exportToPDF={exportToPDF} isGenerated={isGenerated} isGenerating={isGenerating} timeTable={timeTables.filter((table: any) => table.department == "CS" && table.level == level)} tableRef={tableRef} />)
                 }
               </TabPanels>
             </Tabs>
@@ -252,7 +248,7 @@ console.log(selected);
               </TabList>
               <TabPanels>
                 {
-                  levels.map(level => <MyPanels key={level} level={level} dept={"CT"} setSelected={setSelected} exportToPDF={exportToPDF} isGenerated={isGenerated} isGenerating={isGenerating} timeTable={timeTables.filter((table: any) => table.department == "CT" && table.level == level)} tableRef={tableRef} />)
+                  levels.map(level => <MyPanels key={level} exportToPDF={exportToPDF} isGenerated={isGenerated} isGenerating={isGenerating} timeTable={timeTables.filter((table: any) => table.department == "CT" && table.level == level)} tableRef={tableRef} />)
                 }
               </TabPanels>
             </Tabs>
@@ -267,7 +263,7 @@ console.log(selected);
               </TabList>
               <TabPanels>
                 {
-                  levels.map(level => <MyPanels key={level} level={level} dept={"CIS"} setSelected={setSelected} exportToPDF={exportToPDF} isGenerated={isGenerated} isGenerating={isGenerating} timeTable={timeTables.filter((table: any) => table.department == "CIS" && table.level == level)} tableRef={tableRef} />)
+                  levels.map(level => <MyPanels key={level} exportToPDF={exportToPDF} isGenerated={isGenerated} isGenerating={isGenerating} timeTable={timeTables.filter((table: any) => table.department == "CIS" && table.level == level)} tableRef={tableRef} />)
                 }
               </TabPanels>
             </Tabs>
@@ -282,7 +278,7 @@ console.log(selected);
               </TabList>
               <TabPanels>
                 {
-                  levels.map(level => <MyPanels key={level} level={level} dept={"CIS"} setSelected={setSelected} exportToPDF={exportToPDF} isGenerated={isGenerated} isGenerating={isGenerating} timeTable={timeTables.filter((table: any) => table.department == "IT" && table.level == level)} tableRef={tableRef} />)
+                  levels.map(level => <MyPanels key={level} exportToPDF={exportToPDF} isGenerated={isGenerated} isGenerating={isGenerating} timeTable={timeTables.filter((table: any) => table.department == "IT" && table.level == level)} tableRef={tableRef} />)
                 }
               </TabPanels>
             </Tabs>

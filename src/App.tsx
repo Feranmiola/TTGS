@@ -78,7 +78,7 @@ function App() {
               
               <Route path='/StudentHome' element = { <StudentHome/> }/>
               <Route path='/LecturerHome' element = { <LecturerHome/> }/>
-              <Route path='/LecturerHome' element = { <LecturerHome/> }/>
+              {/* <Route path='/LecturerHome' element = { <LecturerHome/> }/> */}
 
 
             </Route>
